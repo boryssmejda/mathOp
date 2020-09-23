@@ -19,14 +19,14 @@ class HelloConan(ConanFile):
     def build(self):
 
         if platform.system() == 'Windows':
-            self.run("cmake ../../source/CMake")
+            self.run("cmake -S ./CMake -B .")
             self.run("cmake --build . --config Release --target install")
             self.run("cmake --build . --config Debug --target install")
         elif platform.system() == 'Linux':
             pass
 
     def package(self):
-        self.copy("*", dst=".", src="../../source/CMake/install/mathOp")
+        self.copy("*", dst=".", src="./CMake/install/mathOp")
 
     def package_info(self):
         self.cpp_info.libs = ["mathOp"]
