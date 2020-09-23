@@ -42,6 +42,12 @@ project(CMakeExperiment)
             CONFIGURATIONS RELEASE
     )
 
+    install(DIRECTORY ${PROJECT_BINARY_DIR}/Debug
+        DESTINATION lib/Debug
+        FILES_MATCHING
+        PATTERN *.pdb
+    )
+
     target_include_directories(mathOp
         PUBLIC
             $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src>
