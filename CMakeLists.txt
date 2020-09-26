@@ -15,6 +15,7 @@ project(CMakeExperiment)
     add_library(mathOp src/mathOp.cpp src/mathOp.h)
     set_target_properties(mathOp PROPERTIES PUBLIC_HEADER src/mathOp.h)
 
+    set_target_properties(mathOp PROPERTIES DEBUG_POSTFIX _d) 
     if(BUILD_SHARED_LIBS AND MSVC)
         target_compile_definitions(mathOp PUBLIC MATHLIBRARY_EXPORTS)
     endif()

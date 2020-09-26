@@ -20,31 +20,38 @@ class mathOpConan(ConanFile):
         if self.settings.compiler == "Visual Studio":
             del self.settings.compiler.runtime
 
-    def build(self):
+    def build_windows(self):
         self.configure()
-        if platform.system() == 'Windows':
-            if self.options.shared == True:
-                self.run("cmake -S ./CMake -B . -DBUILD_SHARED_LIBS=ON")
-            else:
-                self.run("cmake -S ./CMake -B .")
+        if self.options.shared == True:
+            self.run("cmake -S ./CMake -B . -DBUILD_SHARED_LIBS=ON")
+        else:
+            self.run("cmake -S ./CMake -B .")
 
-            self.run("cmake --build . --config Release --target install")
-            self.run("cmake --build . --config Debug --target install")
+        self.run("cmake --build . --config Release --target install")
+        self.run("cmake --build . --config Debug --target install")
+
+
+    def build_linux(self):
+        if self.options.shared == True:
+            self.run("cmake -S ./CMake -B . -DCMAKE_BUILD_TYPE=Debug -DBUILD_SHARED_LIBS=ON")
+        else:
+            self.run("cmake -S ./CMake -B . -DCMAKE_BUILD_TYPE=Debug")
+
+        self.run("cmake --build . --target install")
+
+        if self.options.shared == True:
+            self.run("cmake -S ./CMake -B . -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS=ON")
+        else:
+            self.run("cmake -S ./CMake -B . -DCMAKE_BUILD_TYPE=Release")
+
+        self.run("cmake --build . --target install")
+
+    def build(self):
+        if platform.system() == 'Windows':
+            self.build_windows()
 
         elif platform.system() == 'Linux':
-            if self.options.shared == True:
-                self.run("cmake -S ./CMake -B . -DCMAKE_BUILD_TYPE=DEBUG -DBUILD_SHARED_LIBS=ON")
-            else
-                self.run("cmake -S ./CMake -B . -DCMAKE_BUILD_TYPE=DEBUG")
-
-            self.run("cmake --build . --config RELEASE --target install")
-
-            if self.options.shared == True:
-                self.run("cmake -S ./CMake -B . -DCMAKE_BUILD_TYPE=RELEASE -DBUILD_SHARED_LIBS=ON")
-            else
-                self.run("cmake -S ./CMake -B . -DCMAKE_BUILD_TYPE=RELEASE")
-
-            self.run("cmake --build . --config RELEASE --target install")
+            self.build_linux()
 
     def package(self):
         self.copy("*", dst=".", src="./CMake/install/mathOp")
