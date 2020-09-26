@@ -46,12 +46,22 @@ class mathOpConan(ConanFile):
 
         self.run("cmake --build . --target install")
 
+    def build_android(self):
+        self.run("cmake -S ./CMake -B . -DCMAKE_BUILD_TYPE=Debug")
+        self.run("cmake --build . --target install")
+
+        self.run("cmake -S ./CMake -B . -DCMAKE_BUILD_TYPE=Release")
+        self.run("cmake --build . --target install")
+
     def build(self):
         if platform.system() == 'Windows':
             self.build_windows()
 
         elif platform.system() == 'Linux':
             self.build_linux()
+
+        elif self.settings.os == 'Android':
+            self.build_android()
 
     def package(self):
         self.copy("*", dst=".", src="./CMake/install/mathOp")
