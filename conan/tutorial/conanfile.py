@@ -42,7 +42,7 @@ class mathOpConan(ConanFile):
             if self.options.shared == True:
                 self.run("cmake -S ./CMake -B . -DCMAKE_BUILD_TYPE=RELEASE -DBUILD_SHARED_LIBS=ON")
             else
-                self.run("cmake -S ./CMake -B . -DCMAKE_BUILD_TYPE=RELEASE -DBUILD_SHARED_LIBS=ON")
+                self.run("cmake -S ./CMake -B . -DCMAKE_BUILD_TYPE=RELEASE")
 
             self.run("cmake --build . --config RELEASE --target install")
 
