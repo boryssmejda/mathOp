@@ -8,7 +8,7 @@ class mathOpConan(ConanFile):
     author = "Borys Smejda"
     url = "https://github.com/boryssmejda/CMake.git"
     description = ""
-    settings = "os", "compiler", "build_type", "arch"
+    settings = "os", "compiler", "arch"
     options = {"shared": [True, False]}
     default_options = {"shared": False}
     generators = "cmake"
@@ -16,8 +16,12 @@ class mathOpConan(ConanFile):
     def source(self):
         self.run("git clone {}".format(self.url))
 
-    def build(self):
+    def configure(self):
+        if self.settings.compiler == "Visual Studio":
+            del self.settings.compiler.runtime
 
+    def build(self):
+        self.configure()
         if platform.system() == 'Windows':
             if self.options.shared == True:
                 self.run("cmake -S ./CMake -B . -DBUILD_SHARED_LIBS=ON")
@@ -28,10 +32,10 @@ class mathOpConan(ConanFile):
             self.run("cmake --build . --config Debug --target install")
 
         elif platform.system() == 'Linux':
-            self.run("cmake -S ./CMake -B . -DCMAKE_BUILD_TYPE=Debug))
+            self.run("cmake -S ./CMake -B . -DCMAKE_BUILD_TYPE=Debug")
             self.run("cmake --build . --config Debug --target install")
 
-            self.run("cmake -S ./CMake -B . -DCMAKE_BUILD_TYPE=Release)
+            self.run("cmake -S ./CMake -B . -DCMAKE_BUILD_TYPE=Release")
             self.run("cmake --build . --config Release --target install")
 
     def package(self):
