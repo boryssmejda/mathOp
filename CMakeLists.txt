@@ -14,6 +14,11 @@ project(CMakeExperiment)
 
     add_library(mathOp src/mathOp.cpp src/mathOp.h)
     set_target_properties(mathOp PROPERTIES PUBLIC_HEADER src/mathOp.h)
+
+    if(BUILD_SHARED_LIBS AND MSVC)
+        target_compile_definitions(mathOp PUBLIC MATHLIBRARY_EXPORTS)
+    endif()
+
     set(CMAKE_INSTALL_PREFIX "${CMAKE_SOURCE_DIR}/install/mathOp")
 
     install(TARGETS mathOp
