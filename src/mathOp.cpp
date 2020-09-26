@@ -1,3 +1,4 @@
+#define MATHLIBRARY_EXPORTS
 #include "mathOp.h"
 
 int mathOp::add(int a, int b)

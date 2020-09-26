@@ -1,7 +1,7 @@
 from conans import ConanFile, CMake, tools
 import platform
 
-class HelloConan(ConanFile):
+class mathOpConan(ConanFile):
     name = "mathOp"
     version = "1.0"
     license = "MIT License"
@@ -23,6 +23,7 @@ class HelloConan(ConanFile):
             self.run("cmake --build . --config Release --target install")
             self.run("cmake --build . --config Debug --target install")
         elif platform.system() == 'Linux':
+            self.run("cmake -S ./CMake -B . -DCMAKE_BUILD_TYPE={}".format(self.settings.build_type))
             pass
 
     def package(self):
