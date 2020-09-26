@@ -19,17 +19,23 @@ class mathOpConan(ConanFile):
     def build(self):
 
         if platform.system() == 'Windows':
-            self.run("cmake -S ./CMake -B .")
+            if self.options.shared == True:
+                self.run("cmake -S ./CMake -B . -DBUILD_SHARED_LIBS=ON")
+            else:
+                self.run("cmake -S ./CMake -B .")
+
             self.run("cmake --build . --config Release --target install")
             self.run("cmake --build . --config Debug --target install")
+
         elif platform.system() == 'Linux':
-            self.run("cmake -S ./CMake -B . -DCMAKE_BUILD_TYPE={}".format(self.settings.build_type))
-            pass
+            self.run("cmake -S ./CMake -B . -DCMAKE_BUILD_TYPE=Debug))
+            self.run("cmake --build . --config Debug --target install")
+
+            self.run("cmake -S ./CMake -B . -DCMAKE_BUILD_TYPE=Release)
+            self.run("cmake --build . --config Release --target install")
 
     def package(self):
         self.copy("*", dst=".", src="./CMake/install/mathOp")
 
     def package_info(self):
         self.cpp_info.libs = ["mathOp"]
-        #self.cpp_info.debug.libs = ["mathOp_d"]
-

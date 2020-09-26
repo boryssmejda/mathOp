@@ -1,9 +1,13 @@
 #pragma once
 
-#ifdef MATHLIBRARY_EXPORTS
-    #define MATHLIBRARY_API __declspec(dllexport)
+#if defined(_WIN32)
+    #ifdef MATHLIBRARY_EXPORTS
+        #define MATHLIBRARY_API __declspec(dllexport)
+    #else
+        #define MATHLIBRARY_API
+    #endif
 #else
-    #define MATHLIBRARY_API __declspec(dllimport)
+    #define MATHLIBRARY_API
 #endif
 
 namespace mathOp
