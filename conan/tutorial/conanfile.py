@@ -33,18 +33,18 @@ class mathOpConan(ConanFile):
 
         elif platform.system() == 'Linux':
             if self.options.shared == True:
-                self.run("cmake -S ./CMake -B . -DCMAKE_BUILD_TYPE=Debug -DBUILD_SHARED_LIBS=ON")
+                self.run("cmake -S ./CMake -B . -DCMAKE_BUILD_TYPE=DEBUG -DBUILD_SHARED_LIBS=ON")
             else
-                self.run("cmake -S ./CMake -B . -DCMAKE_BUILD_TYPE=Debug")
+                self.run("cmake -S ./CMake -B . -DCMAKE_BUILD_TYPE=DEBUG")
 
-            self.run("cmake --build . --config Debug --target install")
+            self.run("cmake --build . --config RELEASE --target install")
 
             if self.options.shared == True:
-                self.run("cmake -S ./CMake -B . -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS=ON")
+                self.run("cmake -S ./CMake -B . -DCMAKE_BUILD_TYPE=RELEASE -DBUILD_SHARED_LIBS=ON")
             else
-                self.run("cmake -S ./CMake -B . -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS=ON")
+                self.run("cmake -S ./CMake -B . -DCMAKE_BUILD_TYPE=RELEASE -DBUILD_SHARED_LIBS=ON")
 
-            self.run("cmake --build . --config Release --target install")
+            self.run("cmake --build . --config RELEASE --target install")
 
     def package(self):
         self.copy("*", dst=".", src="./CMake/install/mathOp")
