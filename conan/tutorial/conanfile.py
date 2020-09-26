@@ -32,10 +32,18 @@ class mathOpConan(ConanFile):
             self.run("cmake --build . --config Debug --target install")
 
         elif platform.system() == 'Linux':
-            self.run("cmake -S ./CMake -B . -DCMAKE_BUILD_TYPE=Debug")
+            if self.options.shared == True:
+                self.run("cmake -S ./CMake -B . -DCMAKE_BUILD_TYPE=Debug -DBUILD_SHARED_LIBS=ON")
+            else
+                self.run("cmake -S ./CMake -B . -DCMAKE_BUILD_TYPE=Debug")
+
             self.run("cmake --build . --config Debug --target install")
 
-            self.run("cmake -S ./CMake -B . -DCMAKE_BUILD_TYPE=Release")
+            if self.options.shared == True:
+                self.run("cmake -S ./CMake -B . -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS=ON")
+            else
+                self.run("cmake -S ./CMake -B . -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS=ON")
+
             self.run("cmake --build . --config Release --target install")
 
     def package(self):
