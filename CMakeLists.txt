@@ -15,18 +15,12 @@ project(CMakeExperiment)
     add_library(mathOp src/mathOp.cpp src/mathOp.h)
     set_target_properties(mathOp PROPERTIES PUBLIC_HEADER src/mathOp.h)
 
-    set_target_properties(mathOp PROPERTIES DEBUG_POSTFIX _d) 
-    if(BUILD_SHARED_LIBS AND MSVC)
-        target_compile_definitions(mathOp PUBLIC MATHLIBRARY_EXPORTS)
-    endif()
-
     set(CMAKE_INSTALL_PREFIX "${CMAKE_SOURCE_DIR}/install/mathOp")
 
     install(TARGETS mathOp
             EXPORT mathOp_debug
             CONFIGURATIONS Debug
             ARCHIVE DESTINATION lib/Debug
-            RUNTIME DESTINATION lib/Debug
             PUBLIC_HEADER DESTINATION include/mathOp
     )
 
@@ -34,7 +28,6 @@ project(CMakeExperiment)
             EXPORT mathOp_release
             CONFIGURATIONS Release
             ARCHIVE DESTINATION lib/Release
-            RUNTIME DESTINATION lib/Release
             PUBLIC_HEADER DESTINATION include/mathOp
     )
 
@@ -56,8 +49,6 @@ project(CMakeExperiment)
         DESTINATION lib
         FILES_MATCHING
         PATTERN "*.pdb"
-        PATTERN "*.ilk"
-        PATTERN "*.exp"
     )
 
     target_include_directories(mathOp
