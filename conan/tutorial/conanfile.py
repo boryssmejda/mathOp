@@ -47,17 +47,17 @@ class mathOpConan(ConanFile):
         self.run("cmake --build . --target install")
 
     def build_android(self):
-        self.run("cmake -S ./CMake -B . -DCMAKE_BUILD_TYPE=Debug")
-        self.run("cmake --build . --target install")
-
-        self.run("cmake -S ./CMake -B . -DCMAKE_BUILD_TYPE=Release")
-        self.run("cmake --build . --target install")
+        print('Android welcome to <-------')
+        cmake = CMake(self, build_type="Release")
+        cmake.configure(source_folder="./CMake")
+        cmake.build()
+        cmake.install()
 
     def build(self):
-        if platform.system() == 'Windows':
+        if self.settings.os == 'Windows':
             self.build_windows()
 
-        elif platform.system() == 'Linux':
+        elif self.settings.os == 'Linux':
             self.build_linux()
 
         elif self.settings.os == 'Android':
