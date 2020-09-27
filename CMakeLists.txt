@@ -33,14 +33,14 @@ project(CMakeExperiment)
 
     install(EXPORT mathOp_debug
             DESTINATION cmake/
-            FILE mathOp-config.cmake
+	    FILE mathOpConfig.cmake
             NAMESPACE mathOp::
             CONFIGURATIONS DEBUG
     )
 
     install(EXPORT mathOp_release
             DESTINATION cmake/
-            FILE mathOp-config.cmake
+	    FILE mathOpConfig.cmake
             NAMESPACE mathOp::
             CONFIGURATIONS RELEASE
     )
