@@ -6,58 +6,23 @@ if("${CMAKE_SOURCE_DIR}" STREQUAL "${CMAKE_BINARY_DIR}")
 endif()
 
 option(BUILD_SHARED_LIBS OFF)
+option(BUILD_TESTS ON)
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-project(Producer)
+project(Producer CXX)
 
-    add_library(mathOp src/mathOp.cpp src/mathOp.h)
-    set_target_properties(mathOp PROPERTIES PUBLIC_HEADER src/mathOp.h)
-    target_include_directories(mathOp
-        PRIVATE
-        ${CMAKE_SOURCE_DIR}/deps/fmt/include
-    )
+    add_subdirectory(src)
 
-    set(CMAKE_INSTALL_PREFIX "${CMAKE_SOURCE_DIR}/install/mathOp")
+    message(STATUS ${BUILD_TESTS})
+    if(BUILD_TESTS)
+        add_subdirectory(test)
 
-    install(TARGETS mathOp
-            EXPORT mathOp_debug
-            CONFIGURATIONS Debug
-            ARCHIVE DESTINATION lib/Debug
-            PUBLIC_HEADER DESTINATION include/mathOp
-    )
-
-    install(TARGETS mathOp
-            EXPORT mathOp_release
-            CONFIGURATIONS Release
-            ARCHIVE DESTINATION lib/Release
-            PUBLIC_HEADER DESTINATION include/mathOp
-    )
-
-    install(EXPORT mathOp_debug
-            DESTINATION cmake/
-	    FILE mathOpConfig.cmake
-            NAMESPACE mathOp::
-            CONFIGURATIONS DEBUG
-    )
-
-    install(EXPORT mathOp_release
-            DESTINATION cmake/
-	    FILE mathOpConfig.cmake
-            NAMESPACE mathOp::
-            CONFIGURATIONS RELEASE
-    )
-
-    install(DIRECTORY ${PROJECT_BINARY_DIR}/Debug
-        DESTINATION lib
-        FILES_MATCHING
-        PATTERN "*.pdb"
-    )
-
-    target_include_directories(mathOp
-        PUBLIC
-            $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src>
-            $<INSTALL_INTERFACE:include>
-    )
+        enable_testing()
+        add_test(NAME test_mathOp_add COMMAND test_mathOp_add)
+        add_test(NAME test_mathOp_subtract COMMAND test_mathOp_subtract)
+        add_test(NAME test_mathOp_multiply COMMAND test_mathOp_multiply)
+        add_test(NAME test_mathOp_divide COMMAND test_mathOp_divide)
+    endif()

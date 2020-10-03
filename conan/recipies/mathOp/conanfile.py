@@ -12,6 +12,7 @@ class mathOpConan(ConanFile):
     options = {"shared": [True, False]}
     default_options = {"shared": False}
     generators = "cmake"
+    build_requires = "fmt/7.0.3@borys/stable"
 
     def source(self):
         self.run("git clone {}".format(self.url))
@@ -21,6 +22,8 @@ class mathOpConan(ConanFile):
             del self.settings.compiler.runtime
 
     def build(self):
+
+        self.run("conan install fmt/7.0.3@borys/stable -if ./CMake/deps -g deploy")
         cmake_release = CMake(self, build_type="Release")
         cmake_release.configure(source_folder="./CMake")
         cmake_release.build()
