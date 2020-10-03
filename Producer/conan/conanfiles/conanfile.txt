@@ -1,0 +1,2 @@
+[requires]
+fmt/7.0.3@borys/stable

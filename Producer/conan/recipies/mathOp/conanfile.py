@@ -7,7 +7,7 @@ class mathOpConan(ConanFile):
     license = "MIT License"
     author = "Borys Smejda"
     url = "https://github.com/boryssmejda/CMake.git"
-    description = ""
+    description = "My adventure with Conan and CMake"
     settings = "os", "compiler", "arch"
     options = {"shared": [True, False]}
     default_options = {"shared": False}
