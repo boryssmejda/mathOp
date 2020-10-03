@@ -23,12 +23,12 @@ class mathOpConan(ConanFile):
     def build(self):
         cmake_release = CMake(self, build_type="Release")
         cmake_release.configure(source_folder="./CMake")
-        cmake_release.build()
+        cmake_release.build(target="mathOp")
         cmake_release.install()
 
         cmake_debug = CMake(self, build_type="Debug")
         cmake_debug.configure(source_folder="./CMake")
-        cmake_debug.build()
+        cmake_debug.build(target="mathOp")
         cmake_debug.install()
 
     def package(self):
