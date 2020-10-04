@@ -1,14 +1,21 @@
 
 cmake_minimum_required(VERSION 3.16)
 
-    add_library(mathOp mathOp.cpp mathOp.h)
+    add_library(mathOp
+        mathOp.h
+        INTERNAL/add.cpp
+        INTERNAL/subtract.cpp
+        INTERNAL/multiply.cpp
+        INTERNAL/divide.cpp
+    )
     set_target_properties(mathOp PROPERTIES PUBLIC_HEADER mathOp.h)
     target_include_directories(mathOp
         PRIVATE
-        ${CMAKE_SOURCE_DIR}/deps/fmt/include
+            ${FMT_HEADERS_LOCATION}
+        PUBLIC
+            $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
+            $<INSTALL_INTERFACE:include>
     )
-
-    set(CMAKE_INSTALL_PREFIX "${CMAKE_SOURCE_DIR}/install/mathOp")
 
     install(TARGETS mathOp
             EXPORT mathOp_debug
@@ -42,10 +49,4 @@ cmake_minimum_required(VERSION 3.16)
         DESTINATION lib
         FILES_MATCHING
         PATTERN "*.pdb"
-    )
-
-    target_include_directories(mathOp
-        PUBLIC
-            $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src>
-            $<INSTALL_INTERFACE:include>
     )

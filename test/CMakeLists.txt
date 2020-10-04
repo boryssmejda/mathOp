@@ -15,12 +15,23 @@ cmake_minimum_required(VERSION 3.16)
     add_executable(test_mathOp_divide test_mathOp_divide.cpp)
     list(APPEND tests test_mathOp_divide)
 
-    message(STATUS ${tests})
     foreach(test ${tests})
         target_link_libraries(${test}
             PRIVATE
             mathOp
             GTest::gtest
             GTest::gtest_main
+        )
+
+        install(TARGETS ${test}
+            EXPORT ${test}_debug
+            CONFIGURATIONS Debug
+            RUNTIME DESTINATION bin/Debug
+        )
+
+        install(TARGETS ${test}
+            EXPORT ${test}_release
+            CONFIGURATIONS Release
+            RUNTIME DESTINATION bin/Release
         )
     endforeach()

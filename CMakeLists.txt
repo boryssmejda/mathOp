@@ -16,7 +16,6 @@ project(Producer CXX)
 
     add_subdirectory(src)
 
-    message(STATUS ${BUILD_TESTS})
     if(BUILD_TESTS)
         add_subdirectory(test)
 
