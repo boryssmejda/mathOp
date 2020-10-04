@@ -2,6 +2,8 @@
 
 #include "gtest/gtest.h"
 
+#include <limits>
+#include <stdexcept>
 
 TEST(MathOpAddTest, AddSmallNumbers)
 {
@@ -16,18 +18,23 @@ TEST(MathOpAddTest, AddBigNumbers)
 {
     EXPECT_EQ(mathOp::add(1150,850), 2000);
     EXPECT_EQ(mathOp::add(9999,1), 10000);
-    EXPECT_EQ(mathOp::add(100000,1), 100001);
+    EXPECT_EQ(mathOp::add(100'000,1), 100'001);
     EXPECT_EQ(mathOp::add(100'000'000, 15), 100'000'015);
+
+    const auto MAX_INT = std::numeric_limits<int>::max();
+    EXPECT_EQ(mathOp::add(MAX_INT, 0), MAX_INT);
 }
 
 TEST(MathOpAddTest, DetectOverflow)
 {
-
+    const auto MAX_INT = std::numeric_limits<int>::max();
+    EXPECT_THROW(mathOp::add(MAX_INT, 1), std::invalid_argument);
 }
 
 TEST(MathOpAddTest, DetectUnderflow)
 {
-
+    const auto MIN_INT = std::numeric_limits<int>::min();
+    EXPECT_THROW(mathOp::add(MIN_INT, -1), std::invalid_argument);
 }
 
 
