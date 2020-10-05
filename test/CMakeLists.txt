@@ -24,13 +24,11 @@ cmake_minimum_required(VERSION 3.16)
         )
 
         install(TARGETS ${test}
-            EXPORT ${test}_debug
             CONFIGURATIONS Debug
             RUNTIME DESTINATION bin/Debug
         )
 
         install(TARGETS ${test}
-            EXPORT ${test}_release
             CONFIGURATIONS Release
             RUNTIME DESTINATION bin/Release
         )

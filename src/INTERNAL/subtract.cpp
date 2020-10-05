@@ -12,7 +12,7 @@ namespace
     {
         const int MAX_INT = std::numeric_limits<int>::max();
 
-        if ((b < 0) && (a > MAX_INT - b))
+        if ((b < 0) && (a > MAX_INT + b))
         {
             return true;
         }
@@ -39,14 +39,14 @@ namespace
 
 int mathOp::subtract(int a, int b)
 {
-    fmt::print("Subtraction for a = {} and b = {}", a, b);
-    if(wouldUnderFlow(a, b))
+    fmt::print("Subtraction for a = {} and b = {}\n", a, b);
+    if(wouldOverflow(a, b))
     {
-        throw std::invalid_argument("Subtraction would result in integer overflow!");
+        throw std::invalid_argument("Subtraction would result in integer overflow!\n");
     }
     else if(wouldUnderFlow(a, b))
     {
-        throw std::invalid_argument("Subtraction would result in integer underflow!");
+        throw std::invalid_argument("Subtraction would result in integer underflow!\n");
     }
     else
     {

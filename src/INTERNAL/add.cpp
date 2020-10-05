@@ -37,14 +37,14 @@ namespace
 
 int mathOp::add(int a, int b)
 {
-    fmt::print("Addition for a = {} and b = {}", a, b);
+    fmt::print("Addition for a = {} and b = {}\n", a, b);
     if(wouldOverflow(a, b))
     {
-        throw std::invalid_argument("Addition would result in integer overflow!");
+        throw std::invalid_argument("Addition would result in integer overflow!\n");
     }
     else if (wouldUnderFlow(a, b))
     {
-        throw std::invalid_argument("Addition would result in integer underflow!");
+        throw std::invalid_argument("Addition would result in integer underflow!\n");
     }
     else
     {

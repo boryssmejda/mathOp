@@ -22,7 +22,7 @@ namespace
             return true;
         }
 
-        if((b > 0) && (a > static_cast<double>(MAX_INT)/b))
+        if(a > static_cast<double>(MAX_INT)/b)
         {
             return true;
         }
@@ -36,7 +36,7 @@ namespace
     {
         const int MIN_INT = std::numeric_limits<int>::min();
 
-        if((b < 0) && (a < static_cast<double>(MIN_INT)/b))
+        if(a < static_cast<double>(MIN_INT)/b)
         {
             return true;
         }
@@ -49,14 +49,20 @@ namespace
 
 int mathOp::multiply(int a, int b)
 {
-    fmt::print("Multiplication for a = {} and b = {}", a, b);
+    fmt::print("Multiplication for a = {} and b = {}\n", a, b);
+
+    if(a == 0 || b == 0)
+    {
+        return 0;
+    }
+
     if(wouldOverflow(a, b))
     {
-        throw std::invalid_argument("Multiplication would result in integer overflow!");
+        throw std::invalid_argument("Multiplication would result in integer overflow!\n");
     }
     else if(wouldUnderflow(a, b))
     {
-        throw std::invalid_argument("Multiplication would result in integer underflow!");
+        throw std::invalid_argument("Multiplication would result in integer underflow!\n");
     }
     else
     {
