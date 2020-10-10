@@ -2,7 +2,6 @@ cmake_minimum_required(VERSION 3.16)
 
     find_package(GTest CONFIG REQUIRED)
 
-    set(tests)
     add_executable(test_mathOp_add test_mathOp_add.cpp)
     list(APPEND tests test_mathOp_add)
 

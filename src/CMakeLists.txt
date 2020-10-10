@@ -10,11 +10,20 @@ cmake_minimum_required(VERSION 3.16)
     )
     set_target_properties(mathOp PROPERTIES PUBLIC_HEADER mathOp.h)
     target_include_directories(mathOp
-        PRIVATE
-            ${FMT_HEADERS_LOCATION}
         PUBLIC
             $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
             $<INSTALL_INTERFACE:include>
+    )
+
+    target_compile_definitions(mathOp
+        PRIVATE
+            FMT_HEADER_ONLY
+    )
+    target_precompile_headers(mathOp
+        PRIVATE
+            "${FMT_HEADERS_LOCATION}/fmt/format.h"
+            <stdexcept>
+            <limits>
     )
 
     install(TARGETS mathOp
