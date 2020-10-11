@@ -1,0 +1,6 @@
+[requires]
+fmt/7.0.3@borys/stable
+gtest/1.10.0@borys/stable
+
+[build_requires]
+android_ndk_installer/r20@bincrafters/stable
