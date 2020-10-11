@@ -20,12 +20,14 @@ class GTestConan(ConanFile):
     def build(self):
         cmake_release = CMake(self, build_type="Release")
         cmake_release.definitions["gtest_force_shared_crt"] = "ON"
+        cmake_release.definitions["CMAKE_POSITION_INDEPENDENT_CODE"] = "ON"
         cmake_release.configure(source_folder="./googletest")
         cmake_release.build()
         cmake_release.install()
 
         cmake_debug = CMake(self, build_type="Debug")
         cmake_debug.definitions["gtest_force_shared_crt"] = "ON"
+        cmake_debug.definitions["CMAKE_POSITION_INDEPENDENT_CODE"] = "ON"
         cmake_debug.configure(source_folder="./googletest")
         cmake_debug.build()
         cmake_debug.install()
