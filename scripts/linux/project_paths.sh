@@ -6,7 +6,7 @@ DEPS_DIR="$PROJECT_ROOT/deps"
 BUILD_DIR="$PROJECT_ROOT/build"
 INSTALL_DIR="$PROJECT_ROOT/install"
 FMT_HEADERS_LOCATION="$DEPS_DIR/fmt/include"
-CONANFILE_LOCATION="$PROJECT_ROOT/conan/conanfiles/conanfile.txt"
+CONANFILE_LOCATION="$PROJECT_ROOT/conan/conanfiles/desktop/conanfile.txt"
 CONAN_PROFILE_LOCATION="$PROJECT_ROOT/conan/profiles/conan-profile-linux-static.txt"
 
 print_variables()
