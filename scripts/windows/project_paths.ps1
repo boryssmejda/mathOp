@@ -4,7 +4,7 @@ $DEPS_DIR = Join-Path -Path $PROJECT_ROOT -ChildPath "deps"
 $BUILD_DIR = Join-Path -Path $PROJECT_ROOT -ChildPath "build"
 $INSTALL_DIR = Join-Path -Path $PROJECT_ROOT -ChildPath "install"
 $FMT_HEADERS_LOCATION = Join-Path -Path $DEPS_DIR -ChildPath "fmt\include"
-$CONANFILE_LOCATION = Join-Path -Path $PROJECT_ROOT -ChildPath "conan\conanfiles\conanfile.txt"
+$CONANFILE_LOCATION = Join-Path -Path $PROJECT_ROOT -ChildPath "conan\conanfiles\desktop\conanfile.txt"
 $CONAN_PROFILE_LOCATION = Join-Path -Path $PROJECT_ROOT -ChildPath "conan\profiles\conan-profile-windows-static.txt"
 
 function Show-ProjectPaths
