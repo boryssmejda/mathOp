@@ -20,7 +20,6 @@ echo "Build configuration: $buildType"
 
 cmake   -S $PROJECT_ROOT \
         -B $BUILD_DIR \
-        -A x64 \
         -D CMAKE_SYSTEM_NAME=Android \
         -D CMAKE_SYSTEM_VERSION=21 \
         -D CMAKE_ANDROID_ARCH_ABI=arm64-v8a \

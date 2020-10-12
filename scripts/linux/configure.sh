@@ -20,7 +20,6 @@ echo "Build configuration: $buildType"
 
 cmake   -S $PROJECT_ROOT \
         -B $BUILD_DIR \
-         A x64 \
         -D CMAKE_BUILD_TYPE=$buildType \
         -D CMAKE_INSTALL_PREFIX="$INSTALL_DIR" \
         -D CMAKE_PREFIX_PATH="$DEPS_DIR" \
