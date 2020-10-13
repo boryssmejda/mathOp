@@ -42,14 +42,14 @@ cmake_minimum_required(VERSION 3.16)
 
     install(EXPORT mathOp_debug
             DESTINATION cmake/
-	        FILE mathOpConfig.cmake
+            FILE mathOpConfig.cmake
             NAMESPACE mathOp::
             CONFIGURATIONS DEBUG
     )
 
     install(EXPORT mathOp_release
             DESTINATION cmake/
-	        FILE mathOpConfig.cmake
+            FILE mathOpConfig.cmake
             NAMESPACE mathOp::
             CONFIGURATIONS RELEASE
     )
