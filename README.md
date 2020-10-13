@@ -3,8 +3,15 @@ mathOp is a C++ library, whose main goal was to examine the interoperability bet
 
 ## Motivation
 I wanted to create this project to put together all I have learned during my 2020 internship in [Hexagon](https://hexagon.com/)
-in their office in Łódź. Back then I was tasked with development of an Qt GUI application that could be deployed on Windows,
-Android and iOS.
+in their office in Łódź.</br>
+Back then I was tasked with development of an Qt GUI application that could be deployed on Windows,
+Android and iOS.</br>
+
+I am fully aware, that the C++ code the library is written in, is extremely simple. However, the code complexity was not
+of main intrest for me when doing this project.</br>
+I just wanted to prepare a potential platform for any future multiplatform project
+that I could start. I wanted also to experience any hurdles in preparing a multiplatform C++ project nowadays.</br>
+
 This time I wanted to create a simple library performing basic mathematical operations such as addition, subtraction, multiplication
 and division. The library should have an external dependency and should be tested using a testing framework.
 External dependency that I have chosen was [fmt](https://github.com/fmtlib/fmt).
@@ -103,10 +110,9 @@ Dependencies will be uninstalled, if you run:
 ./uninstall_dependencies.sh
 ```
 
-## Adding to your project
-To add `mathOp` as your dependency, simply place the built package into some known location,
-show CMake where `find_package` should look for it,</br>
-by pointing `CMAKE_PREFIX_PATH` to its location.
+## Adding mathOp to your project
+To add `mathOp` as your dependency, simply place the built package into some known location,</br>
+show CMake where `find_package` should look for it, by pointing `CMAKE_PREFIX_PATH` to its location.</br>
 In your CMakeLists.txt simply write:
 ```
 find_package(mathOp CONFIG REQUIRED)
@@ -128,20 +134,20 @@ target_link_libraries(target_name PRIVATE mathOp::mathOp)
 5. Set of unit tests written with Google Test
 
 ## ToDo List
-1. Create Conan packages and Conan recipe for mathOp library
-2. Check if mathOp package can be easily consumed by external project
-3. Add option to build mathOp as shared library with exported symbols
-4. The Cross Platform Public C Interface
-5. Call the library methods in Python scripts
-6. Replace makefiles with Ninja as a default build system on UNIX platforms
-7. Python scripts for uniform project building.
-   - Compare their code with the platform specific scripts.
-   - Check which one is more readable and potentially easier to maintain
-8. Setup Continuous Integration for the project
+- [ ] Create Conan packages and Conan recipe for mathOp library
+- [ ] Check if mathOp package can be easily consumed by external project
+- [ ] Add option to build mathOp as shared library with exported symbols
+- [ ] The Cross Platform Public C Interface
+- [ ] Call the library methods in Python scripts
+- [ ] Replace makefiles with Ninja as a default build system on UNIX platforms
+- [ ] Python scripts for uniform project building.
+    - Compare their code with the platform specific scripts.
+    - Check which one is more readable and potentially easier to maintain
+- [ ] Setup Continuous Integration for the project
 
 ## Acknowledgements
 I would like to thank my friend [Grzegorz](https://github.com/Greg-Skowronski),
-without whom I would not be able to prepare this project.</br>
-He shared his time and, most importantly, his Macbook so I could experiment with porting the project
-on both MacOS and iOS.</br>
+without whom I couldn't prepare this project.</br>
+He shared his time and, most importantly, his Macbook, so I could experiment</br>
+with porting the project on both MacOS and iOS.</br>
 Thank you Grzegorz!
