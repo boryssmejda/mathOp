@@ -25,10 +25,12 @@ cmake_minimum_required(VERSION 3.16)
         install(TARGETS ${test}
             CONFIGURATIONS Debug
             RUNTIME DESTINATION bin/Debug
+            BUNDLE DESTINATION bin/Debug
         )
 
         install(TARGETS ${test}
             CONFIGURATIONS Release
             RUNTIME DESTINATION bin/Release
+            BUNDLE DESTINATION bin/Release
         )
     endforeach()
