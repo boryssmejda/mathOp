@@ -93,7 +93,7 @@ To uninstall dependencies, simply run:
 ./uninstall_dependencies.sh
 ```
 
-### MacOS and iOS
+### MacOS
 ```
 ./dependencies_install.sh
 ./configure
@@ -122,7 +122,7 @@ target_link_libraries(target_name PRIVATE mathOp::mathOp)
 ## Tasks done already
 1. Create scripts to configure, build, install and test the project across different platforms
    - PowerShell scripts to build project on Windows
-   - Bash scripts for Linux, MacOS, Android and iOS
+   - Bash scripts for Linux, MacOS and Android
 2. Write CMakeLists.txt that fullfills following functions:
    - creates library that uses C++17
    - finds and links all the project dependencies
