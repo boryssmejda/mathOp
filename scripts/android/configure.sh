@@ -18,12 +18,24 @@ fi
 
 echo "Build configuration: $buildType"
 
+if [ $# -eq 1 ];then
+    shouldBuildShared="OFF"
+elif [ "$2" = "Static" ]; then
+    shouldBuildShared="OFF"
+elif [ "$2" = "Shared" ]; then
+    shouldBuildShared="ON"
+else
+    echo "Neither Static nor Shared! Aborting ..."
+    exit 1
+fi
+
 cmake   -S $PROJECT_ROOT \
         -B $BUILD_DIR \
         -D CMAKE_SYSTEM_NAME=Android \
         -D CMAKE_SYSTEM_VERSION=21 \
         -D CMAKE_ANDROID_ARCH_ABI=arm64-v8a \
         -D CMAKE_ANDROID_NDK="$ANDROID_NDK_LOCATION" \
+        -D BUILD_SHARED_LIBS=$shouldBuildShared \
         -D CMAKE_BUILD_TYPE=$buildType \
         -D CMAKE_INSTALL_PREFIX="$INSTALL_DIR" \
         -D CMAKE_PREFIX_PATH="$DEPS_DIR" \
