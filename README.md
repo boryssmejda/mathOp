@@ -1,6 +1,25 @@
 # mathOp
 mathOp is a C++ library, whose main goal was to examine the interoperability between [CMake](https://cmake.org/) and [Conan](https://conan.io/) in multiplatform development using C++.
 
+## Table of contents
+- [mathOp](#mathop)
+  - [Table of contents](#table-of-contents)
+  - [Motivation](#motivation)
+  - [Prerequisities](#prerequisities)
+  - [Setup](#setup)
+    - [Windows](#windows)
+    - [Linux](#linux)
+    - [Android](#android)
+    - [MacOS](#macos)
+  - [Adding mathOp to your project](#adding-mathop-to-your-project)
+  - [Code Examples](#code-examples)
+    - [Operations on small numbers without underflow or overflow](#operations-on-small-numbers-without-underflow-or-overflow)
+    - [Exception on overflow](#exception-on-overflow)
+    - [Division by 0](#division-by-0)
+  - [Tasks done already](#tasks-done-already)
+  - [ToDo List](#todo-list)
+  - [Acknowledgements](#acknowledgements)
+
 ## Motivation
 I wanted to create this project to put together all I have learned during my 2020 internship in [Hexagon](https://hexagon.com/)
 in their office in Łódź.</br>
@@ -36,7 +55,7 @@ To use this library, you have to have following software installed:
 - [CMake](https://cmake.org/), version minimum 3.16
 - [Conan Package Manager](https://conan.io/), project works on v1.28.0
 
-## Build from sources
+## Setup
 To get the project, simply run:
 ```
 git clone https://github.com/boryssmejda/mathOp.git
@@ -46,68 +65,68 @@ the platform you are interested in.
 
 ### Windows
 ```
-./dependencies_install.ps1
-./configure.ps1
-./build.ps1 build_type - where build_type can be either Release or Debug
-./install.ps1
-./test.ps1 - to run library's unit tests
+$ ./dependencies_install.ps1
+$ ./configure.ps1
+$ ./build.ps1 build_type - where build_type can be either Release or Debug
+$ ./install.ps1
+$ ./test.ps1 - to run library's unit tests
 ```
 To clean up the workspace, simply run:</br>
 ```
-./clean.ps1
-./uninstall_dependencies.ps1
+$ ./clean.ps1
+$ ./uninstall_dependencies.ps1
 ```
 
 ### Linux
 ```
-./dependencies_install.sh
-./configure.sh build_type - where build_type can be either Release or Debug
-./build.sh
-./install.sh
-./test.sh
+$ ./dependencies_install.sh
+$ ./configure.sh build_type - where build_type can be either Release or Debug
+$ ./build.sh
+$ ./install.sh
+$ ./test.sh
 ```
 To delete `build` and `install` folders, simply run:
 ```
-./clean.sh
+$ ./clean.sh
 ```
 To uninstall dependencies, simply run:
 ```
-./uninstall_dependencies.sh
+$ ./uninstall_dependencies.sh
 ```
 
 ### Android
 ```
-./dependencies_install.sh
-./configure.sh build_type - where build_type can be either Release or Debug
-./build.sh
-./install.sh
-./deploy.sh
-./test.sh
+$ ./dependencies_install.sh
+$ ./configure.sh build_type - where build_type can be either Release or Debug
+$ ./build.sh
+$ ./install.sh
+$ ./deploy.sh
+$ ./test.sh
 ```
 To delete `build` and `install` folders, simply run:
 ```
-./clean.sh
+$ ./clean.sh
 ```
 To uninstall dependencies, simply run:
 ```
-./uninstall_dependencies.sh
+$ ./uninstall_dependencies.sh
 ```
 
 ### MacOS
 ```
-./dependencies_install.sh
-./configure
-./build.sh build_type - either Debug or Release
-./install build_type - pass Debug or Release, or nothing if both should be installed
-./test - this command is only available on MacOS!
+$ ./dependencies_install.sh
+$ ./configure
+$ ./build.sh build_type - either Debug or Release
+$ ./install build_type - pass Debug or Release, or nothing if both should be installed
+$ ./test - this command is only available on MacOS!
 ```
 Cleaning the workspace of the `build/` and `install/` folders is as simple as running:
 ```
-./clean.sh
+$ ./clean.sh
 ```
 Dependencies will be uninstalled, if you run:
 ```
-./uninstall_dependencies.sh
+$ ./uninstall_dependencies.sh
 ```
 
 ## Adding mathOp to your project
@@ -118,6 +137,61 @@ In your CMakeLists.txt simply write:
 find_package(mathOp CONFIG REQUIRED)
 target_link_libraries(target_name PRIVATE mathOp::mathOp)
 ```
+
+## Code Examples
+
+### Operations on small numbers without underflow or overflow
+```
+#include <mathOp/mathOp.h>
+
+int main()
+{
+   int a = mathOp::add(10, 20);
+   int b = mathOp::subtract(30, 10);
+   int c = mathOp::multiply(9, 36);
+   double d = mathOp::divide(100, 20);
+}
+```
+
+### Exception on overflow
+```
+#include <mathOp/mathOp.h>
+#include <limits>
+#include <stdexcept>
+
+int main()
+{
+   const int MAX_INT = std::numeric_limits<int>::max();
+   try
+   {
+      mathOp::add(MAX_INT, 1);
+   }
+   catch(const std::invalid_argument& ia)
+   {
+      ia.what();
+   }
+}
+```
+
+### Division by 0
+```
+#include <mathOp/mathOp.h>
+#include <stdexcept>
+
+int main()
+{
+   const int billion = 1'000'000'000;
+   try
+   {
+      mathOp::divide(billion, 0);
+   }
+   catch(const std::invalid_argument& ia)
+   {
+      ia.what();
+   }
+}
+```
+
 
 ## Tasks done already
 1. Create scripts to configure, build, install and test the project across different platforms
