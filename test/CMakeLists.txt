@@ -14,6 +14,20 @@ cmake_minimum_required(VERSION 3.16)
     add_executable(test_mathOp_divide test_mathOp_divide.cpp)
     list(APPEND tests test_mathOp_divide)
 
+    if(BUILD_SHARED_LIBS AND WIN32)
+    #copy dll file into folders with executables
+        add_custom_command(
+            TARGET
+                test_mathOp_add
+            POST_BUILD
+            COMMAND
+                ${CMAKE_COMMAND} -E copy_if_different
+                    $<TARGET_FILE:mathOp> $<TARGET_FILE_DIR:test_mathOp_add>
+            COMMENT
+                "Copying mathOp into test directory"
+        )
+    endif()
+
     foreach(test ${tests})
         target_link_libraries(${test}
             PRIVATE
