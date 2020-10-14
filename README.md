@@ -45,7 +45,7 @@ the potential of [Conan](https://conan.io/) as a package manager.
 
 With the help of **CMake** and **Conan**, I wanted to make library easy to use as a potential 3rd party.
 So that the consumer should only do two things in its CMakeLists.txt
-```
+```cmake
 find_package(mathOp)
 target_link_libraries(Target PRIVATE mathOp::mathOp)
 ```
@@ -86,11 +86,11 @@ $ ./install.sh
 $ ./test.sh
 ```
 To delete `build` and `install` folders, simply run:
-```
+```bash
 $ ./clean.sh
 ```
 To uninstall dependencies, simply run:
-```
+```bash
 $ ./uninstall_dependencies.sh
 ```
 
@@ -104,11 +104,11 @@ $ ./deploy.sh
 $ ./test.sh
 ```
 To delete `build` and `install` folders, simply run:
-```
+```bash
 $ ./clean.sh
 ```
 To uninstall dependencies, simply run:
-```
+```bash
 $ ./uninstall_dependencies.sh
 ```
 
@@ -121,11 +121,11 @@ $ ./install build_type - pass Debug or Release, or nothing if both should be ins
 $ ./test - this command is only available on MacOS!
 ```
 Cleaning the workspace of the `build/` and `install/` folders is as simple as running:
-```
+```bash
 $ ./clean.sh
 ```
 Dependencies will be uninstalled, if you run:
-```
+```bash
 $ ./uninstall_dependencies.sh
 ```
 
@@ -133,7 +133,7 @@ $ ./uninstall_dependencies.sh
 To add `mathOp` as your dependency, simply place the built package into some known location,</br>
 show CMake where `find_package` should look for it, by pointing `CMAKE_PREFIX_PATH` to its location.</br>
 In your CMakeLists.txt simply write:
-```
+```cmake
 find_package(mathOp CONFIG REQUIRED)
 target_link_libraries(target_name PRIVATE mathOp::mathOp)
 ```
@@ -141,7 +141,7 @@ target_link_libraries(target_name PRIVATE mathOp::mathOp)
 ## Code Examples
 
 ### Operations on small numbers without underflow or overflow
-```
+```cpp
 #include <mathOp/mathOp.h>
 
 int main()
@@ -154,7 +154,7 @@ int main()
 ```
 
 ### Exception on overflow
-```
+```cpp
 #include <mathOp/mathOp.h>
 #include <limits>
 #include <stdexcept>
@@ -174,7 +174,7 @@ int main()
 ```
 
 ### Division by 0
-```
+```cpp
 #include <mathOp/mathOp.h>
 #include <stdexcept>
 
