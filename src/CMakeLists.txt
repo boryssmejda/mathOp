@@ -8,6 +8,12 @@ cmake_minimum_required(VERSION 3.16)
         INTERNAL/multiply.cpp
         INTERNAL/divide.cpp
     )
+
+    target_compile_definitions(mathOp
+        PRIVATE
+            $<$<BOOL:${BUILD_SHARED_LIBS}>:MATHOP_SHARED>
+    )
+
     set_target_properties(mathOp PROPERTIES PUBLIC_HEADER mathOp.h)
     target_include_directories(mathOp
         PUBLIC
@@ -30,6 +36,7 @@ cmake_minimum_required(VERSION 3.16)
             EXPORT mathOp_debug
             CONFIGURATIONS Debug
             ARCHIVE DESTINATION lib/Debug
+            RUNTIME DESTINATION bin/Debug
             PUBLIC_HEADER DESTINATION include/mathOp
     )
 
@@ -37,6 +44,7 @@ cmake_minimum_required(VERSION 3.16)
             EXPORT mathOp_release
             CONFIGURATIONS Release
             ARCHIVE DESTINATION lib/Release
+            RUNTIME DESTINATION bin/Release
             PUBLIC_HEADER DESTINATION include/mathOp
     )
 
@@ -52,10 +60,4 @@ cmake_minimum_required(VERSION 3.16)
             FILE mathOpConfig.cmake
             NAMESPACE mathOp::
             CONFIGURATIONS RELEASE
-    )
-
-    install(DIRECTORY ${PROJECT_BINARY_DIR}/Debug
-            DESTINATION lib
-            FILES_MATCHING
-            PATTERN "*.pdb"
     )

@@ -14,6 +14,8 @@ project(Producer CXX)
 option(BUILD_SHARED_LIBS OFF)
 option(BUILD_TESTS "BUILD_TESTS" ON)
 
+    message(STATUS "BUILD_SHARED_LIBS: ${BUILD_SHARED_LIBS}")
+
     add_subdirectory(src)
     if(BUILD_TESTS)
         add_subdirectory(test)
