@@ -210,7 +210,7 @@ int main()
 ## ToDo List
 - [ ] Create Conan packages and Conan recipe for mathOp library
 - [ ] Check if mathOp package can be easily consumed by external project
-- [ ] Add option to build mathOp as shared library with exported symbols
+- [x] Add option to build mathOp as shared library with exported symbols
 - [ ] The Cross Platform Public C Interface
 - [ ] Call the library methods in Python scripts
 - [ ] Replace makefiles with Ninja as a default build system on UNIX platforms
