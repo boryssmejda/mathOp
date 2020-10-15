@@ -14,10 +14,13 @@ cmake_minimum_required(VERSION 3.16)
             $<$<BOOL:${BUILD_SHARED_LIBS}>:MATHOP_SHARED>
     )
 
-    target_compile_options(mathOp
-        PRIVATE
-        $<$<BOOL:$<AND:$<BOOL:${BUILD_SHARED_LIBS}>,$<CXX_COMPILER_ID:AppleClang,Clang>>>:-fvisibility=hidden>
-    )
+    if(BUILD_SHARED_LIBS AND NOT WIN32)
+        target_compile_options(mathOp
+            PRIVATE
+                -fvisibility=hidden
+                -fvisibility-inlines-hidden
+        )
+    endif()
 
     set_target_properties(mathOp PROPERTIES PUBLIC_HEADER mathOp.h)
     target_include_directories(mathOp
