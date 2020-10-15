@@ -7,7 +7,11 @@
         #define MATHOP_API __declspec(dllimport)
     #endif
 #else
-    #define MATHOP_API
+    #ifdef MATHOP_SHARED
+        #define MATHOP_API __attribute__ ((visibility ("default")))
+    #else
+        #define MATHOP_API
+    #endif
 #endif
 
 namespace mathOp
