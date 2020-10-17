@@ -58,7 +58,7 @@ cmake_minimum_required(VERSION 3.16)
     target_include_directories(mathOp_c_api
         PUBLIC
             $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
-            $<INSTALL_INTERFACE:mathOp_c_api/include>
+            $<INSTALL_INTERFACE:include>
     )
 
     target_link_libraries(mathOp_c_api
@@ -74,5 +74,16 @@ cmake_minimum_required(VERSION 3.16)
         )
     endif()
 
-    install_target(NAME "mathOp_c_api" NAMESPACE "mathOp" HEADER_NAME "mathOp")
-    install_target(NAME "mathOp" NAMESPACE "mathOp" HEADER_NAME "mathOp")
+    install_target(NAME "mathOp" "mathOp_c_api"
+                   NAMESPACE "mathOp"
+                   HEADER_NAME "mathOp"
+                   CMAKE_FILE "mathOp"
+                   EXPORT_NAME "mathOp"
+    )
+
+    copy_dll_for_unittests(NAME "mathOp_c_api" LOCATION "mathOp_c_api")
+
+    if(BUILD_SHARED_LIBS AND WIN32)
+        copy_dll_for_unittests(NAME "mathOp" LOCATION "mathOp")
+        copy_dll_for_unittests(NAME "mathOp" LOCATION "mathOp_c_api")
+    endif()

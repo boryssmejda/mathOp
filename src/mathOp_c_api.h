@@ -21,6 +21,8 @@ enum Status
         INVALID_ARGUMENT
 };
 
+typedef enum Status Status;
+
 MATHOP_C_API int mathOp_arithmetic_add(int a, int b, Status *operationStatus);
 MATHOP_C_API int mathOp_arithmetic_subtract(int a, int b, Status *operationStatus);
 MATHOP_C_API int mathOp_arithmetic_multiply(int a, int b, Status *operationStatus);
