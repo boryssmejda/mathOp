@@ -12,6 +12,7 @@ cmake_minimum_required(VERSION 3.16)
     target_compile_definitions(mathOp
         PRIVATE
             $<$<BOOL:${BUILD_SHARED_LIBS}>:MATHOP_SHARED>
+            $<$<NOT:$<BOOL:${BUILD_SHARED_LIBS}>>:MATHOP_STATIC>
     )
 
     if(BUILD_SHARED_LIBS AND NOT WIN32)
@@ -40,32 +41,26 @@ cmake_minimum_required(VERSION 3.16)
             <limits>
     )
 
-    install(TARGETS mathOp
-            EXPORT mathOp_debug
-            CONFIGURATIONS Debug
-            ARCHIVE DESTINATION lib/Debug
-            RUNTIME DESTINATION bin/Debug
-            PUBLIC_HEADER DESTINATION include/mathOp
-    )
+    if(NOT BUILD_SHARED_LIBS)
+        add_library(mathOp_c_api
+            SHARED
+                mathOp_c_api.h
+                INTERNAL/mathOp_c_api.cpp
+        )
 
-    install(TARGETS mathOp
-            EXPORT mathOp_release
-            CONFIGURATIONS Release
-            ARCHIVE DESTINATION lib/Release
-            RUNTIME DESTINATION bin/Release
-            PUBLIC_HEADER DESTINATION include/mathOp
-    )
+        set_target_properties(mathOp_c_api PROPERTIES PUBLIC_HEADER mathOp_c_api.h)
+        target_include_directories(mathOp_c_api
+            PUBLIC
+                $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
+                $<INSTALL_INTERFACE:mathOp_c_api/include>
+        )
 
-    install(EXPORT mathOp_debug
-            DESTINATION cmake/
-            FILE mathOpConfig.cmake
-            NAMESPACE mathOp::
-            CONFIGURATIONS DEBUG
-    )
+        target_link_libraries(mathOp_c_api
+            PRIVATE
+                mathOp
+        )
 
-    install(EXPORT mathOp_release
-            DESTINATION cmake/
-            FILE mathOpConfig.cmake
-            NAMESPACE mathOp::
-            CONFIGURATIONS RELEASE
-    )
+        install_target(NAME "mathOp_c_api" NAMESPACE "mathOp" HEADER_NAME "mathOp")
+    endif()
+
+    install_target(NAME "mathOp" NAMESPACE "mathOp" HEADER_NAME "mathOp")

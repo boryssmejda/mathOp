@@ -1,7 +1,12 @@
 #pragma once
 
+
+
+
 #if defined(WIN32) || defined(_WIN32)
-    #ifdef MATHOP_SHARED
+    #ifdef MATHOP_STATIC
+        #define MATHOP_API
+    #elif  defined(MATHOP_SHARED)
         #define MATHOP_API __declspec(dllexport)
     #else
         #define MATHOP_API __declspec(dllimport)

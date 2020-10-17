@@ -9,14 +9,17 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-project(Producer CXX)
+project(mathOp CXX)
 
 option(BUILD_SHARED_LIBS OFF)
 option(BUILD_TESTS "BUILD_TESTS" ON)
 
+include(cmake/install_target.cmake)
+
     message(STATUS "BUILD_SHARED_LIBS: ${BUILD_SHARED_LIBS}")
 
     add_subdirectory(src)
+
     if(BUILD_TESTS)
         add_subdirectory(test)
 
