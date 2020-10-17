@@ -33,7 +33,7 @@ namespace
     }
 }
 
-int mathOp::subtract(int a, int b)
+int mathOp::Arithmetic::subtract(int a, int b)
 {
     fmt::print("Subtraction for a = {} and b = {}\n", a, b);
     if(wouldOverflow(a, b))

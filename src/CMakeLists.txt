@@ -10,7 +10,7 @@ cmake_minimum_required(VERSION 3.16)
     )
 
     target_compile_definitions(mathOp
-        PRIVATE
+        PUBLIC
             $<$<BOOL:${BUILD_SHARED_LIBS}>:MATHOP_SHARED>
             $<$<NOT:$<BOOL:${BUILD_SHARED_LIBS}>>:MATHOP_STATIC>
     )
@@ -41,26 +41,38 @@ cmake_minimum_required(VERSION 3.16)
             <limits>
     )
 
-    if(NOT BUILD_SHARED_LIBS)
-        add_library(mathOp_c_api
-            SHARED
-                mathOp_c_api.h
-                INTERNAL/mathOp_c_api.cpp
-        )
+    ###########################################3333
 
-        set_target_properties(mathOp_c_api PROPERTIES PUBLIC_HEADER mathOp_c_api.h)
-        target_include_directories(mathOp_c_api
-            PUBLIC
-                $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
-                $<INSTALL_INTERFACE:mathOp_c_api/include>
-        )
+    add_library(mathOp_c_api
+        SHARED
+            mathOp_c_api.h
+            INTERNAL/mathOp_c_api.cpp
+    )
 
-        target_link_libraries(mathOp_c_api
+    target_compile_definitions(mathOp_c_api
+        PUBLIC
+            MATHOP_C_API_EXPORTS
+    )
+
+    set_target_properties(mathOp_c_api PROPERTIES PUBLIC_HEADER mathOp_c_api.h)
+    target_include_directories(mathOp_c_api
+        PUBLIC
+            $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
+            $<INSTALL_INTERFACE:mathOp_c_api/include>
+    )
+
+    target_link_libraries(mathOp_c_api
+        PRIVATE
+            mathOp
+    )
+
+    if(NOT WIN32)
+        target_compile_options(mathOp_c_api
             PRIVATE
-                mathOp
+                -fvisibility=hidden
+                -fvisibility-inlines-hidden
         )
-
-        install_target(NAME "mathOp_c_api" NAMESPACE "mathOp" HEADER_NAME "mathOp")
     endif()
 
+    install_target(NAME "mathOp_c_api" NAMESPACE "mathOp" HEADER_NAME "mathOp")
     install_target(NAME "mathOp" NAMESPACE "mathOp" HEADER_NAME "mathOp")

@@ -31,7 +31,7 @@ namespace
     }
 }
 
-int mathOp::add(int a, int b)
+int mathOp::Arithmetic::add(int a, int b)
 {
     fmt::print("Addition for a = {} and b = {}\n", a, b);
     if(wouldOverflow(a, b))

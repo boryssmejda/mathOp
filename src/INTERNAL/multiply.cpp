@@ -43,7 +43,7 @@ namespace
     }
 }
 
-int mathOp::multiply(int a, int b)
+int mathOp::Arithmetic::multiply(int a, int b)
 {
     fmt::print("Multiplication for a = {} and b = {}\n", a, b);
 

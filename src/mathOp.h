@@ -21,8 +21,12 @@
 
 namespace mathOp
 {
-    MATHOP_API int add(int a, int b);
-    MATHOP_API int subtract(int a, int b);
-    MATHOP_API int multiply(int a, int b);
-    MATHOP_API double divide(int a, int b);
+    class MATHOP_API Arithmetic
+    {
+        public:
+            static int add(int a, int b);
+            static int subtract(int a, int b);
+            static int multiply(int a, int b);
+            static double divide(int a, int b);
+    };
 }
