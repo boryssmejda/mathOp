@@ -32,6 +32,7 @@ fi
 cmake   -S $PROJECT_ROOT \
         -B $BUILD_DIR \
         -D BUILD_SHARED_LIBS=$shouldBuildShared \
+        -D MATHOP_BUILD_SHARED=$shouldBuildShared \
         -D CMAKE_BUILD_TYPE=$buildType \
         -D CMAKE_INSTALL_PREFIX="$INSTALL_DIR" \
         -D CMAKE_PREFIX_PATH="$DEPS_DIR" \

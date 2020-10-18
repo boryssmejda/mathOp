@@ -11,6 +11,7 @@ function(install_target)
         EXPORT ${INSTALL_TARGET_EXPORT_NAME}_debug
         CONFIGURATIONS Debug
         ARCHIVE DESTINATION lib/Debug
+        LIBRARY DESTINATION lib/Debug
         RUNTIME DESTINATION bin/Debug
         PUBLIC_HEADER DESTINATION include/${INSTALL_TARGET_HEADER_NAME}
     )
@@ -19,6 +20,7 @@ function(install_target)
         EXPORT ${INSTALL_TARGET_EXPORT_NAME}_release
         CONFIGURATIONS Release
         ARCHIVE DESTINATION lib/Release
+        LIBRARY DESTINATION lib/Release
         RUNTIME DESTINATION bin/Release
         PUBLIC_HEADER DESTINATION include/${INSTALL_TARGET_HEADER_NAME}
     )

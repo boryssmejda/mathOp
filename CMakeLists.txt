@@ -16,8 +16,10 @@ option(BUILD_TESTS "BUILD_TESTS" ON)
 
 include(cmake/install_target.cmake)
 include(cmake/copy_dll_for_unittests.cmake)
+include(cmake/configure_unittests.cmake)
+include(cmake/install_sharedLib_for_unittests.cmake)
 
-    message(STATUS "BUILD_SHARED_LIBS: ${BUILD_SHARED_LIBS}")
+    message(STATUS "MATHOP_BUILD_SHARED: ${MATHOP_BUILD_SHARED}")
 
     add_subdirectory(src)
 
@@ -30,8 +32,11 @@ include(cmake/copy_dll_for_unittests.cmake)
         add_test(NAME test_mathOp_cpp_multiply COMMAND test_mathOp_cpp_multiply)
         add_test(NAME test_mathOp_cpp_divide COMMAND test_mathOp_cpp_divide)
 
-        add_test(NAME test_mathOp_c_api_add COMMAND test_mathOp_c_api_add)
-        add_test(NAME test_mathOp_c_api_subtract COMMAND test_mathOp_c_api_subtract)
-        add_test(NAME test_mathOp_c_api_multiply COMMAND test_mathOp_c_api_multiply)
-        add_test(NAME test_mathOp_c_api_divide COMMAND test_mathOp_c_api_divide)
+        # tests should be created only when mathOp is built as static lib
+        if(NOT MATHOP_BUILD_SHARED)
+            add_test(NAME test_mathOp_c_api_add COMMAND test_mathOp_c_api_add)
+            add_test(NAME test_mathOp_c_api_subtract COMMAND test_mathOp_c_api_subtract)
+            add_test(NAME test_mathOp_c_api_multiply COMMAND test_mathOp_c_api_multiply)
+            add_test(NAME test_mathOp_c_api_divide COMMAND test_mathOp_c_api_divide)
+        endif()
     endif()

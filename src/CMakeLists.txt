@@ -1,7 +1,7 @@
 
 cmake_minimum_required(VERSION 3.16)
 
-    add_library(mathOp
+    set(MATHOP_SOURCES
         mathOp.h
         INTERNAL/add.cpp
         INTERNAL/subtract.cpp
@@ -9,19 +9,39 @@ cmake_minimum_required(VERSION 3.16)
         INTERNAL/divide.cpp
     )
 
+    if(MATHOP_BUILD_SHARED)
+        add_library(mathOp
+            SHARED
+            ${MATHOP_SOURCES}
+        )
+    else()
+        add_library(mathOp
+            STATIC
+            ${MATHOP_SOURCES}
+        )
+    endif()
+
     target_compile_definitions(mathOp
         PUBLIC
-            $<$<BOOL:${BUILD_SHARED_LIBS}>:MATHOP_SHARED>
-            $<$<NOT:$<BOOL:${BUILD_SHARED_LIBS}>>:MATHOP_STATIC>
+            $<$<BOOL:${MATHOP_BUILD_SHARED}>:MATHOP_SHARED>
+            $<$<NOT:$<BOOL:${MATHOP_BUILD_SHARED}>>:MATHOP_STATIC>
     )
 
-    if(BUILD_SHARED_LIBS AND NOT WIN32)
+    if(MATHOP_BUILD_SHARED AND NOT WIN32)
         target_compile_options(mathOp
             PRIVATE
                 -fvisibility=hidden
                 -fvisibility-inlines-hidden
         )
     endif()
+
+    # compile mathOp with PIC to link it against shared math_c_api on UNIX-like systems
+    if(NOT WIN32)
+        target_compile_options(mathOp
+            PRIVATE
+                -fPIC
+            )
+    endif(NOT WIN32)
 
     set_target_properties(mathOp PROPERTIES PUBLIC_HEADER mathOp.h)
     target_include_directories(mathOp
@@ -41,49 +61,62 @@ cmake_minimum_required(VERSION 3.16)
             <limits>
     )
 
-    ###########################################3333
+    ###########################################
 
-    add_library(mathOp_c_api
-        SHARED
-            mathOp_c_api.h
-            INTERNAL/mathOp_c_api.cpp
-    )
-
-    target_compile_definitions(mathOp_c_api
-        PUBLIC
-            MATHOP_C_API_EXPORTS
-    )
-
-    set_target_properties(mathOp_c_api PROPERTIES PUBLIC_HEADER mathOp_c_api.h)
-    target_include_directories(mathOp_c_api
-        PUBLIC
-            $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
-            $<INSTALL_INTERFACE:include>
-    )
-
-    target_link_libraries(mathOp_c_api
-        PRIVATE
-            mathOp
-    )
-
-    if(NOT WIN32)
-        target_compile_options(mathOp_c_api
-            PRIVATE
-                -fvisibility=hidden
-                -fvisibility-inlines-hidden
+    # mathOp_c_api is only build and installed with static mathOp
+    if(NOT MATHOP_BUILD_SHARED)
+        add_library(mathOp_c_api
+            SHARED
+                mathOp_c_api.h
+                INTERNAL/mathOp_c_api.cpp
         )
+
+        target_compile_definitions(mathOp_c_api
+            PUBLIC
+                MATHOP_C_API_EXPORTS
+        )
+
+        set_target_properties(mathOp_c_api PROPERTIES PUBLIC_HEADER mathOp_c_api.h)
+        target_include_directories(mathOp_c_api
+            PUBLIC
+                $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
+                $<INSTALL_INTERFACE:include>
+        )
+
+        target_link_libraries(mathOp_c_api
+            PRIVATE
+                mathOp
+        )
+
+        if(NOT WIN32)
+            target_compile_options(mathOp_c_api
+                PRIVATE
+                    -fPIC
+                    -fvisibility=hidden
+                    -fvisibility-inlines-hidden
+            )
+        endif()
+
     endif()
 
-    install_target(NAME "mathOp" "mathOp_c_api"
-                   NAMESPACE "mathOp"
-                   HEADER_NAME "mathOp"
-                   CMAKE_FILE "mathOp"
-                   EXPORT_NAME "mathOp"
-    )
+    if(MATHOP_BUILD_SHARED)
+        # install only mathOp when it is built as shared lib
+        install_target(NAME "mathOp"
+                    NAMESPACE "mathOp"
+                    HEADER_NAME "mathOp"
+                    CMAKE_FILE "mathOp"
+                    EXPORT_NAME "mathOp"
+        )
 
-    copy_dll_for_unittests(NAME "mathOp_c_api" LOCATION "mathOp_c_api")
+        install_sharedLib_for_unittests(NAME "mathOp" LOCATION "mathOp" HEADER_NAME "mathOp")
+    else()
+        # mathOp_c_api is only build and installed with static mathOp
+        install_target(NAME "mathOp" "mathOp_c_api"
+                    NAMESPACE "mathOp"
+                    HEADER_NAME "mathOp"
+                    CMAKE_FILE "mathOp"
+                    EXPORT_NAME "mathOp"
+        )
 
-    if(BUILD_SHARED_LIBS AND WIN32)
-        copy_dll_for_unittests(NAME "mathOp" LOCATION "mathOp")
-        copy_dll_for_unittests(NAME "mathOp" LOCATION "mathOp_c_api")
+        install_sharedLib_for_unittests(NAME "mathOp_c_api" LOCATION "mathOp_c_api" HEADER_NAME "mathOp")
     endif()

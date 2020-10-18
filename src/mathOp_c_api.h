@@ -12,7 +12,7 @@ extern "C"
         #define MATHOP_C_API __declspec(dllimport)
     #endif
 #else
-    #define MATHOP_API __attribute__ ((visibility ("default")))
+    #define MATHOP_C_API __attribute__ ((visibility ("default")))
 #endif
 
 enum Status
