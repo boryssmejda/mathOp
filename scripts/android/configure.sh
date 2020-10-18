@@ -35,7 +35,7 @@ cmake   -S $PROJECT_ROOT \
         -D CMAKE_SYSTEM_VERSION=21 \
         -D CMAKE_ANDROID_ARCH_ABI=arm64-v8a \
         -D CMAKE_ANDROID_NDK="$ANDROID_NDK_LOCATION" \
-        -D BUILD_SHARED_LIBS=$shouldBuildShared \
+        -D MATHOP_BUILD_SHARED=$shouldBuildShared \
         -D CMAKE_BUILD_TYPE=$buildType \
         -D CMAKE_INSTALL_PREFIX="$INSTALL_DIR" \
         -D CMAKE_PREFIX_PATH="$DEPS_DIR" \
