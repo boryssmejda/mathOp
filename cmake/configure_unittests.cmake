@@ -1,7 +1,7 @@
 macro(configure_unittests)
 
     set(options OPTIONAL)
-    set(oneValueArgs LOCATION)
+    set(oneValueArgs LOCATION PACKAGE_NAME)
     set(multiValueArgs TESTSET DEPENDENCIES)
 
     cmake_parse_arguments(CONFIGURE_UNIT_TESTS "${options}" "${oneValueArgs}"
@@ -16,14 +16,14 @@ macro(configure_unittests)
     
         install(TARGETS ${test}
             CONFIGURATIONS Debug
-            RUNTIME DESTINATION bin/Debug/${CONFIGURE_UNIT_TESTS_LOCATION}
-            BUNDLE DESTINATION bin/Debug/${CONFIGURE_UNIT_TESTS_LOCATION}
+            RUNTIME DESTINATION ${CONFIGURE_UNIT_TESTS_PACKAGE_NAME}/bin/Debug/${CONFIGURE_UNIT_TESTS_LOCATION}
+            BUNDLE DESTINATION ${CONFIGURE_UNIT_TESTS_PACKAGE_NAME}/bin/Debug/${CONFIGURE_UNIT_TESTS_LOCATION}
         )
     
         install(TARGETS ${test}
             CONFIGURATIONS Release
-            RUNTIME DESTINATION bin/Release/${CONFIGURE_UNIT_TESTS_LOCATION}
-            BUNDLE DESTINATION bin/Release/${CONFIGURE_UNIT_TESTS_LOCATION}
+            RUNTIME DESTINATION ${CONFIGURE_UNIT_TESTS_PACKAGE_NAME}/bin/Release/${CONFIGURE_UNIT_TESTS_LOCATION}
+            BUNDLE DESTINATION ${CONFIGURE_UNIT_TESTS_PACKAGE_NAME}/bin/Release/${CONFIGURE_UNIT_TESTS_LOCATION}
         )
 
         set_target_properties(${test}

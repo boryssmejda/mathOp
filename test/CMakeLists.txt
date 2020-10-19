@@ -32,6 +32,8 @@ cmake_minimum_required(VERSION 3.16)
             GTest::gtest
             GTest::gtest_main
             mathOp
+        PACKAGE_NAME
+            "mathOp"
     )
 
     if(MATHOP_BUILD_SHARED AND WIN32)
@@ -70,6 +72,8 @@ cmake_minimum_required(VERSION 3.16)
                 GTest::gtest
                 GTest::gtest_main
                 mathOp_c_api
+            PACKAGE_NAME
+                "mathOp"
         )
 
         if(WIN32)

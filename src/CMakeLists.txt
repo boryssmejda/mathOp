@@ -100,9 +100,10 @@ cmake_minimum_required(VERSION 3.16)
                     HEADER_NAME "mathOp"
                     CMAKE_FILE "mathOp"
                     EXPORT_NAME "mathOp"
+                    PACKAGE_NAME "mathOp"
         )
 
-        install_sharedLib_for_unittests(NAME "mathOp" LOCATION "mathOp" HEADER_NAME "mathOp")
+        install_sharedLib_for_unittests(NAME "mathOp" LOCATION "mathOp" HEADER_NAME "mathOp" PACKAGE_NAME "mathOp")
     else()
         # mathOp_c_api is only build and installed with static mathOp
         install_target(NAME "mathOp" "mathOp_c_api"
@@ -110,7 +111,8 @@ cmake_minimum_required(VERSION 3.16)
                     HEADER_NAME "mathOp"
                     CMAKE_FILE "mathOp"
                     EXPORT_NAME "mathOp"
+                    PACKAGE_NAME "mathOp"
         )
 
-        install_sharedLib_for_unittests(NAME "mathOp_c_api" LOCATION "mathOp_c_api" HEADER_NAME "mathOp")
+        install_sharedLib_for_unittests(NAME "mathOp_c_api" LOCATION "mathOp_c_api" HEADER_NAME "mathOp" PACKAGE_NAME "mathOp")
     endif()
