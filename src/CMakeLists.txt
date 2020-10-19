@@ -27,21 +27,15 @@ cmake_minimum_required(VERSION 3.16)
             $<$<NOT:$<BOOL:${MATHOP_BUILD_SHARED}>>:MATHOP_STATIC>
     )
 
-    if(MATHOP_BUILD_SHARED AND NOT WIN32)
-        target_compile_options(mathOp
-            PRIVATE
-                -fvisibility=hidden
-                -fvisibility-inlines-hidden
-        )
-    endif()
-
     # compile mathOp with PIC to link it against shared math_c_api on UNIX-like systems
     if(NOT WIN32)
         target_compile_options(mathOp
             PRIVATE
+                -fvisibility=hidden
+                -fvisibility-inlines-hidden
                 -fPIC
-            )
-    endif(NOT WIN32)
+        )
+    endif()
 
     set_target_properties(mathOp PROPERTIES PUBLIC_HEADER mathOp.h)
     target_include_directories(mathOp
