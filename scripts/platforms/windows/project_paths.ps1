@@ -1,11 +1,11 @@
 $SCRIPTS_LOCATION = Get-Location
-$PROJECT_ROOT = Join-Path -Path $SCRIPTS_LOCATION -ChildPath "..\.." -Resolve
+$PROJECT_ROOT = Join-Path -Path $SCRIPTS_LOCATION -ChildPath "..\..\.." -Resolve
 $DEPS_DIR = Join-Path -Path $PROJECT_ROOT -ChildPath "deps"
 $BUILD_DIR = Join-Path -Path $PROJECT_ROOT -ChildPath "build"
 $INSTALL_DIR = Join-Path -Path $PROJECT_ROOT -ChildPath "install"
 $FMT_HEADERS_LOCATION = Join-Path -Path $DEPS_DIR -ChildPath "fmt\include"
 $CONANFILE_LOCATION = Join-Path -Path $PROJECT_ROOT -ChildPath "conan\conanfiles\desktop\conanfile.txt"
-$CONAN_PROFILE_LOCATION = Join-Path -Path $PROJECT_ROOT -ChildPath "conan\profiles\conan-profile-windows-static.txt"
+$CONAN_PROFILE_LOCATION = Join-Path -Path $PROJECT_ROOT -ChildPath "conan\profiles\conan-profile-windows.txt"
 
 function Show-ProjectPaths
 {

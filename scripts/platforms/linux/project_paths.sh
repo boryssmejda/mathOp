@@ -1,14 +1,13 @@
 #!/bin/sh
 
 SCRIPTS_LOCATION=$PWD
-PROJECT_ROOT=$(realpath "$SCRIPTS_LOCATION/../..")
+PROJECT_ROOT=$(realpath "$SCRIPTS_LOCATION/../../..")
 DEPS_DIR="$PROJECT_ROOT/deps"
 BUILD_DIR="$PROJECT_ROOT/build"
 INSTALL_DIR="$PROJECT_ROOT/install/"
 FMT_HEADERS_LOCATION="$DEPS_DIR/fmt/include"
-CONANFILE_LOCATION="$PROJECT_ROOT/conan/conanfiles/android/conanfile.txt"
-CONAN_PROFILE_LOCATION="$PROJECT_ROOT/conan/profiles/conan-profile-android-static.txt"
-ANDROID_NDK_LOCATION="$DEPS_DIR/android_ndk_installer"
+CONANFILE_LOCATION="$PROJECT_ROOT/conan/conanfiles/desktop/conanfile.txt"
+CONAN_PROFILE_LOCATION="$PROJECT_ROOT/conan/profiles/conan-profile-linux.txt"
 
 print_variables()
 {
@@ -21,6 +20,5 @@ print_variables()
     echo "FMT_HEADERS_LOCATION: $FMT_HEADERS_LOCATION"
     echo "CONANFILE_LOCATION: $CONAN_PROFILE_LOCATION"
     echo "CONAN_PROFILE_LOCATION: $CONAN_PROFILE_LOCATION"
-    echo "ANDROID_NDK_LOCATION: $ANDROID_NDK_LOCATION"
     echo "=============================================================================="
 }

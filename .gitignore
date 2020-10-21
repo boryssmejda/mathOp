@@ -2,3 +2,4 @@ build/
 install/
 .vscode/
 deps/
+__pycache__/
