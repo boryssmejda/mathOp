@@ -212,9 +212,14 @@ int main()
 - [ ] Check if mathOp package can be easily consumed by external project
 - [x] Add option to build mathOp as shared library with exported symbols
 - [x] The Cross Platform Public C Interface
-- [ ] Call the library methods in Python scripts
-- [ ] Replace makefiles with Ninja as a default build system on UNIX platforms
-- [ ] Python scripts for uniform project building.
+- [x] Use C API in Python scripts
+- [ ] Replace -fPIC, -fvisibility=hidden flag with CMake's proper variables
+- [ ] Add custom exceptions to C++ library to differentiate between overflow and underflow
+- [ ] Prepare unit tests in Python of the mathOp library
+- [ ] Create fmt binary package using Conan
+- [ ] Create Pybind 11 package with Conan Package Manager
+- [x] Replace makefiles with Ninja as a default build system on UNIX platforms
+- [x] Python scripts for uniform project building.
     - Compare their code with the platform specific scripts.
     - Check which one is more readable and potentially easier to maintain
 - [ ] Setup Continuous Integration for the project
