@@ -210,12 +210,14 @@ int main()
 ## ToDo List
 - [ ] Create Conan packages and Conan recipe for mathOp library
 - [ ] Check if mathOp package can be easily consumed by external project
+- [ ] Check if `add_subdirectory()` works in CMake
 - [x] Add option to build mathOp as shared library with exported symbols
 - [x] The Cross Platform Public C Interface
 - [x] Use C API in Python scripts
-- [ ] Replace -fPIC, -fvisibility=hidden flag with CMake's proper variables
+- [x] Replace -fPIC, -fvisibility=hidden flag with CMake's proper variables
+- [x] Add package version in CMake
 - [ ] Add custom exceptions to C++ library to differentiate between overflow and underflow
-- [ ] Prepare unit tests in Python of the mathOp library
+- [x] Prepare unit tests in Python of the mathOp library
 - [ ] Create fmt binary package using Conan
 - [ ] Create Pybind 11 package with Conan Package Manager
 - [x] Replace makefiles with Ninja as a default build system on UNIX platforms
