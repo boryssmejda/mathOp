@@ -6,7 +6,7 @@ class TestFmtConan(ConanFile):
     generators = "cmake"
 
     def build(self):
-        cmake = CMake(self)
+        cmake = CMake(self, build_type="Release")
         cmake.configure()
         cmake.build()
 

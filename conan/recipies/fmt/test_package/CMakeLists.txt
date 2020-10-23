@@ -7,5 +7,4 @@ conan_basic_setup()
 add_executable(fmtTest test.cpp)
 
 find_package(fmt CONFIG REQUIRED)
-message("${CONAN_LIBS} <----")
 target_link_libraries(fmtTest fmt::fmt)

@@ -40,15 +40,18 @@ cmake_minimum_required(VERSION 3.16)
             $<INSTALL_INTERFACE:include>
     )
 
-    target_compile_definitions(mathOp
-        PRIVATE
-            FMT_HEADER_ONLY
-    )
+    get_target_property(FMT_HEADER_LOCATION fmt::fmt INTERFACE_INCLUDE_DIRECTORIES)
     target_precompile_headers(mathOp
         PRIVATE
-            "${FMT_HEADERS_LOCATION}/fmt/format.h"
+            "${FMT_HEADER_LOCATION}/fmt/core.h"
             <stdexcept>
             <limits>
+            <iostream>
+    )
+
+    target_link_libraries(mathOp
+        PRIVATE
+            fmt::fmt
     )
 
     ###########################################
@@ -60,6 +63,8 @@ cmake_minimum_required(VERSION 3.16)
                 mathOp_c_api.h
                 INTERNAL/mathOp_c_api.cpp
         )
+
+        target_precompile_headers(mathOp_c_api REUSE_FROM mathOp)
 
         target_compile_definitions(mathOp_c_api
             PUBLIC

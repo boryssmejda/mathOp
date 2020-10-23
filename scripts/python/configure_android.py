@@ -26,7 +26,6 @@ if __name__ == "__main__":
                     "-D", "MATHOP_BUILD_SHARED={}".format(MATHOP_BUILD_SHARED),
                     "-D", "CMAKE_INSTALL_PREFIX={}".format(pp.INSTALL_DIR),
                     "-D", "CMAKE_PREFIX_PATH={}".format(pp.DEPS_DIR),
-                    "-D", "FMT_HEADERS_LOCATION={}".format(pp.FMT_HEADERS_LOCATION),
                     "-D", "BUILD_TESTS=ON"]
 
     subprocess.run(cmake_command)

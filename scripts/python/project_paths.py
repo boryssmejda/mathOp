@@ -6,7 +6,6 @@ PROJECT_ROOT = os.path.dirname(SCRIPT_ROOT_LOCATION)
 DEPS_DIR = os.path.join(PROJECT_ROOT, "deps")
 BUILD_DIR = os.path.join(PROJECT_ROOT, "build")
 INSTALL_DIR = os.path.join(PROJECT_ROOT, "install")
-FMT_HEADERS_LOCATION = os.path.join(DEPS_DIR, "fmt", "include")
 
 CONAN_FOLDER_LOCATION = os.path.join(PROJECT_ROOT, "conan")
 CONANFILE_DESKTOP_LOCATION = os.path.join(CONAN_FOLDER_LOCATION, "conanfiles", "desktop", "conanfile.txt")
@@ -27,7 +26,6 @@ def print_project_paths():
     print("DEPS_DIR: {}".format(DEPS_DIR))
     print("BUILD_DIR: {}".format(BUILD_DIR))
     print("INSTALL_DIR: {}".format(INSTALL_DIR))
-    print("FMT_HEADERS_LOCATION: {}".format(FMT_HEADERS_LOCATION))
 
     print("CONAN_FOLDER_LOCATION: {}".format(CONAN_FOLDER_LOCATION))
     print("CONANFILE_DESKTOP_LOCATION: {}".format(CONANFILE_DESKTOP_LOCATION))

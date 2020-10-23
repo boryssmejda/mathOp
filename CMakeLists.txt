@@ -21,6 +21,12 @@ include(cmake/install_sharedLib_for_unittests.cmake)
 
     message(STATUS "MATHOP_BUILD_SHARED: ${MATHOP_BUILD_SHARED}")
 
+    if(BUILD_TESTS)
+        find_package(GTest CONFIG REQUIRED)
+    endif()
+
+    find_package(fmt CONFIG REQUIRED)
+
     add_subdirectory(src)
 
     if(BUILD_TESTS)

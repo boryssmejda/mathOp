@@ -13,13 +13,13 @@ macro(configure_unittests)
             PRIVATE
             ${CONFIGURE_UNIT_TESTS_DEPENDENCIES}
         )
-    
+
         install(TARGETS ${test}
             CONFIGURATIONS Debug
             RUNTIME DESTINATION ${CONFIGURE_UNIT_TESTS_PACKAGE_NAME}/bin/Debug/${CONFIGURE_UNIT_TESTS_LOCATION}
             BUNDLE DESTINATION ${CONFIGURE_UNIT_TESTS_PACKAGE_NAME}/bin/Debug/${CONFIGURE_UNIT_TESTS_LOCATION}
         )
-    
+
         install(TARGETS ${test}
             CONFIGURATIONS Release
             RUNTIME DESTINATION ${CONFIGURE_UNIT_TESTS_PACKAGE_NAME}/bin/Release/${CONFIGURE_UNIT_TESTS_LOCATION}

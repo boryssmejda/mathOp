@@ -1,7 +1,5 @@
 cmake_minimum_required(VERSION 3.16)
 
-    find_package(GTest CONFIG REQUIRED)
-
     ##################### MATH_OP ##############################
     add_executable(test_mathOp_cpp_add
         mathOp_cpp/test_mathOp_cpp_add.cpp
@@ -39,7 +37,7 @@ cmake_minimum_required(VERSION 3.16)
     if(MATHOP_BUILD_SHARED AND WIN32)
         copy_dll_for_unittests(TARGET_NAME "test_mathOp_cpp_add" TARGET_LIB "mathOp")
     endif()
-    #############==== MATH_C_API ########################33
+    ####################### MATH_C_API ########################
 
     # MATHOP_C_API tests should be created only when building static MATHOP
     if(NOT MATHOP_BUILD_SHARED)
