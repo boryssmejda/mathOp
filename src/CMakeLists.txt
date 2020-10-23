@@ -27,17 +27,13 @@ cmake_minimum_required(VERSION 3.16)
             $<$<NOT:$<BOOL:${MATHOP_BUILD_SHARED}>>:MATHOP_STATIC>
     )
 
-    # compile mathOp with PIC to link it against shared math_c_api on UNIX-like systems
-    if(NOT WIN32)
-        target_compile_options(mathOp
-            PRIVATE
-                -fvisibility=hidden
-                -fvisibility-inlines-hidden
-                -fPIC
-        )
-    endif()
-
-    set_target_properties(mathOp PROPERTIES PUBLIC_HEADER mathOp.h)
+    set_target_properties(mathOp
+        PROPERTIES
+            PUBLIC_HEADER mathOp.h
+            POSITION_INDEPENDENT_CODE ON
+            CXX_VISIBILITY_PRESET hidden
+            VISIBILITY_INLINES_HIDDEN ON
+    )
     target_include_directories(mathOp
         PUBLIC
             $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
@@ -70,7 +66,13 @@ cmake_minimum_required(VERSION 3.16)
                 MATHOP_C_API_EXPORTS
         )
 
-        set_target_properties(mathOp_c_api PROPERTIES PUBLIC_HEADER mathOp_c_api.h)
+        set_target_properties(mathOp_c_api
+            PROPERTIES
+                PUBLIC_HEADER mathOp_c_api.h
+                POSITION_INDEPENDENT_CODE ON
+                CXX_VISIBILITY_PRESET hidden
+                VISIBILITY_INLINES_HIDDEN ON
+        )
         target_include_directories(mathOp_c_api
             PUBLIC
                 $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
@@ -82,16 +84,17 @@ cmake_minimum_required(VERSION 3.16)
                 mathOp
         )
 
-        if(NOT WIN32)
-            target_compile_options(mathOp_c_api
-                PRIVATE
-                    -fPIC
-                    -fvisibility=hidden
-                    -fvisibility-inlines-hidden
-            )
-        endif()
-
     endif()
+
+    include(CMakePackageConfigHelpers)
+    write_basic_package_version_file(
+        ${CMAKE_CURRENT_BINARY_DIR}/mathOpConfigVersion.cmake
+        VERSION 1.0.0
+        COMPATIBILITY SameMajorVersion
+    )
+    install(FILES ${CMAKE_CURRENT_BINARY_DIR}/mathOpConfigVersion.cmake
+            DESTINATION mathOp/cmake/
+    )
 
     if(MATHOP_BUILD_SHARED)
         # install only mathOp when it is built as shared lib
