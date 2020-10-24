@@ -124,3 +124,8 @@ cmake_minimum_required(VERSION 3.16)
 
         install_sharedLib_for_unittests(NAME "mathOp_c_api" LOCATION "mathOp_c_api" HEADER_NAME "mathOp" PACKAGE_NAME "mathOp")
     endif()
+
+    if(NOT MATHOP_BUILD_SHARED)
+        pybind11_add_module(mathOp_cpp mathOp_pybind11_module.cpp)
+        target_link_libraries(mathOp_cpp PRIVATE mathOp)
+    endif()

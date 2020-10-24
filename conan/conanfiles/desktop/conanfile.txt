@@ -1,3 +1,4 @@
 [requires]
 fmt/7.0.3@borys/stable
 gtest/1.10.0@borys/stable
+pybind11/2.6.0@borys/stable

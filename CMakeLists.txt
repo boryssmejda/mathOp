@@ -26,6 +26,7 @@ include(cmake/install_sharedLib_for_unittests.cmake)
     endif()
 
     find_package(fmt CONFIG REQUIRED)
+    find_package(pybind11 CONFIG REQUIRED)
 
     add_subdirectory(src)
 
