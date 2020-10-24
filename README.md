@@ -218,8 +218,9 @@ int main()
 - [x] Add package version in CMake
 - [ ] Add custom exceptions to C++ library to differentiate between overflow and underflow
 - [x] Prepare unit tests in Python of the mathOp library
-- [ ] Create fmt binary package using Conan
-- [ ] Create Pybind 11 package with Conan Package Manager
+- [x] Create fmt binary package using Conan
+- [x] Create Pybind 11 package with Conan Package Manager
+- [x] Pybind 11 integration with C++ library
 - [x] Replace makefiles with Ninja as a default build system on UNIX platforms
 - [x] Python scripts for uniform project building.
     - Compare their code with the platform specific scripts.
