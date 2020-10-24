@@ -128,4 +128,10 @@ cmake_minimum_required(VERSION 3.16)
     if(NOT MATHOP_BUILD_SHARED)
         pybind11_add_module(mathOp_cpp mathOp_pybind11_module.cpp)
         target_link_libraries(mathOp_cpp PRIVATE mathOp)
+
+        install(TARGETS mathOp_cpp
+            ARCHIVE DESTINATION mathOp/lib/
+            LIBRARY DESTINATION mathOp/lib/
+            RUNTIME DESTINATION mathOp/bin/
+        )
     endif()
