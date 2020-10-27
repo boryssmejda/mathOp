@@ -17,7 +17,6 @@ option(BUILD_TESTS "BUILD_TESTS" ON)
 include(cmake/install_target.cmake)
 include(cmake/copy_dll_for_unittests.cmake)
 include(cmake/configure_unittests.cmake)
-include(cmake/install_sharedLib_for_unittests.cmake)
 
     message(STATUS "MATHOP_BUILD_SHARED: ${MATHOP_BUILD_SHARED}")
 

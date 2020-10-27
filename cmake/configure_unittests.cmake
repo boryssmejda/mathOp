@@ -11,19 +11,19 @@ macro(configure_unittests)
     foreach(test ${CONFIGURE_UNIT_TESTS_TESTSET})
         target_link_libraries(${test}
             PRIVATE
-            ${CONFIGURE_UNIT_TESTS_DEPENDENCIES}
+                ${CONFIGURE_UNIT_TESTS_DEPENDENCIES}
         )
 
         install(TARGETS ${test}
             CONFIGURATIONS Debug
-            RUNTIME DESTINATION ${CONFIGURE_UNIT_TESTS_PACKAGE_NAME}/bin/Debug/${CONFIGURE_UNIT_TESTS_LOCATION}
-            BUNDLE DESTINATION ${CONFIGURE_UNIT_TESTS_PACKAGE_NAME}/bin/Debug/${CONFIGURE_UNIT_TESTS_LOCATION}
+            RUNTIME DESTINATION ${CONFIGURE_UNIT_TESTS_PACKAGE_NAME}/bin/Debug/
+            BUNDLE DESTINATION ${CONFIGURE_UNIT_TESTS_PACKAGE_NAME}/bin/Debug/
         )
 
         install(TARGETS ${test}
             CONFIGURATIONS Release
-            RUNTIME DESTINATION ${CONFIGURE_UNIT_TESTS_PACKAGE_NAME}/bin/Release/${CONFIGURE_UNIT_TESTS_LOCATION}
-            BUNDLE DESTINATION ${CONFIGURE_UNIT_TESTS_PACKAGE_NAME}/bin/Release/${CONFIGURE_UNIT_TESTS_LOCATION}
+            RUNTIME DESTINATION ${CONFIGURE_UNIT_TESTS_PACKAGE_NAME}/bin/Release/
+            BUNDLE DESTINATION ${CONFIGURE_UNIT_TESTS_PACKAGE_NAME}/bin/Release/
         )
 
         set_target_properties(${test}

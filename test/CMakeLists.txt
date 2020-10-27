@@ -39,52 +39,49 @@ cmake_minimum_required(VERSION 3.16)
     endif()
     ####################### MATH_C_API ########################
 
-    # MATHOP_C_API tests should be created only when building static MATHOP
-    if(NOT MATHOP_BUILD_SHARED)
-        add_executable(test_mathOp_c_api_add
-            mathOp_c_api/test_mathOp_c_api_add.cpp
-        )
+    add_executable(test_mathOp_c_api_add
+        mathOp_c_api/test_mathOp_c_api_add.cpp
+    )
 
-        add_executable(test_mathOp_c_api_subtract
-            mathOp_c_api/test_mathOp_c_api_subtract.cpp
-        )
+    add_executable(test_mathOp_c_api_subtract
+        mathOp_c_api/test_mathOp_c_api_subtract.cpp
+    )
 
-        add_executable(test_mathOp_c_api_multiply
-            mathOp_c_api/test_mathOp_c_api_multiply.cpp
-        )
+    add_executable(test_mathOp_c_api_multiply
+        mathOp_c_api/test_mathOp_c_api_multiply.cpp
+    )
 
-        add_executable(test_mathOp_c_api_divide
-            mathOp_c_api/test_mathOp_c_api_divide.cpp
-        )
+    add_executable(test_mathOp_c_api_divide
+        mathOp_c_api/test_mathOp_c_api_divide.cpp
+    )
 
-        configure_unittests(
-            TESTSET
+    configure_unittests(
+        TESTSET
+            test_mathOp_c_api_add
+            test_mathOp_c_api_subtract
+            test_mathOp_c_api_multiply
+            test_mathOp_c_api_divide
+
+        LOCATION
+            "mathOp_c_api"
+        DEPENDENCIES
+            GTest::gtest
+            GTest::gtest_main
+            mathOp_c_api
+        PACKAGE_NAME
+            "mathOp"
+    )
+
+    if(WIN32)
+        add_custom_command(
+            TARGET
                 test_mathOp_c_api_add
-                test_mathOp_c_api_subtract
-                test_mathOp_c_api_multiply
-                test_mathOp_c_api_divide
-
-            LOCATION
-                "mathOp_c_api"
-            DEPENDENCIES
-                GTest::gtest
-                GTest::gtest_main
-                mathOp_c_api
-            PACKAGE_NAME
-                "mathOp"
+            POST_BUILD
+            COMMAND
+                ${CMAKE_COMMAND} -E copy_if_different
+                    $<TARGET_FILE:mathOp_c_api>
+                    $<TARGET_FILE_DIR:test_mathOp_c_api_add>
+            COMMENT
+                "Copying mathOp_c_api into mathOp_c_api directory"
         )
-
-        if(WIN32)
-            add_custom_command(
-                TARGET
-                    test_mathOp_c_api_add
-                POST_BUILD
-                COMMAND
-                    ${CMAKE_COMMAND} -E copy_if_different
-                        $<TARGET_FILE:mathOp_c_api>
-                        $<TARGET_FILE_DIR:test_mathOp_c_api_add>
-                COMMENT
-                    "Copying mathOp_c_api into mathOp_c_api directory"
-            )
-        endif()
     endif()
