@@ -37,7 +37,7 @@ cmake_minimum_required(VERSION 3.16)
     target_include_directories(mathOp
         PUBLIC
             $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
-            $<INSTALL_INTERFACE:include>
+            $<INSTALL_INTERFACE:mathOp/include>
     )
 
     get_target_property(FMT_HEADER_LOCATION fmt::fmt INTERFACE_INCLUDE_DIRECTORIES)
@@ -81,7 +81,7 @@ cmake_minimum_required(VERSION 3.16)
         target_include_directories(mathOp_c_api
             PUBLIC
                 $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
-                $<INSTALL_INTERFACE:include>
+                $<INSTALL_INTERFACE:mathOp/include>
         )
 
         target_link_libraries(mathOp_c_api
