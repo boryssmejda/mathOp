@@ -208,9 +208,9 @@ int main()
 5. Set of unit tests written with Google Test
 
 ## ToDo List
-- [ ] Create Conan packages and Conan recipe for mathOp library
-- [ ] Check if mathOp package can be easily consumed by external project
-- [ ] Check if `add_subdirectory()` works in CMake
+- [x] Create Conan packages and Conan recipe for mathOp library
+- [x] Check if mathOp package can be easily consumed by external project
+- [x] Check if `add_subdirectory()` works in CMake
 - [x] Add option to build mathOp as shared library with exported symbols
 - [x] The Cross Platform Public C Interface
 - [x] Use C API in Python scripts

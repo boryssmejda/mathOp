@@ -10,9 +10,9 @@ class mathOpConan(ConanFile):
     description = "My adventure with Conan and CMake"
     settings = "os", "compiler", "arch"
     options = {"shared": [True, False]}
-    default_options = {"shared": False}
+    default_options = {"shared": True}
     generators = "cmake"
-    build_requires = "fmt/7.0.3@borys/stable"
+    build_requires = ["fmt/7.0.3@borys/stable", "pybind11/2.6.0@borys/stable"]
 
     def source(self):
         self.run("git clone {}".format(self.url))
@@ -24,12 +24,16 @@ class mathOpConan(ConanFile):
     def build(self):
 
         self.run("conan install fmt/7.0.3@borys/stable -if ./CMake/deps -g deploy")
+        self.run("conan install pybind11/2.6.0@borys/stable -if ./CMake/deps -g deploy")
         cmake_release = CMake(self, build_type="Release")
+        cmake_release.definitions["BUILD_TESTS"] = "OFF"
+        cmake_release.definitions["CMAKE_PREFIX_PATH"] = "./deps"
         cmake_release.configure(source_folder="./CMake")
         cmake_release.build()
         cmake_release.install()
 
         cmake_debug = CMake(self, build_type="Debug")
+        cmake_debug.definitions["BUILD_TESTS"] = "OFF"
         cmake_debug.configure(source_folder="./CMake")
         cmake_debug.build()
         cmake_debug.install()
