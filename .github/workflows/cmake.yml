@@ -26,12 +26,12 @@ jobs:
         - name: Get Conan
           run: |
             pip install conan
-            conan
+            conan --version
+            conan remote add mathOpRepo https://api.bintray.com/conan/boryssmejda/learningOpenGL
         - name: Install Dependencies
           run: |
             pwd
-            cd scripts/python
-            python clean.py
+            cd scripts/python && python clean.py
             python dependencies_install.py
         - name: Configure Project
           run: |
