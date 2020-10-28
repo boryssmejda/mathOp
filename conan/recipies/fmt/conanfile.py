@@ -23,6 +23,7 @@ class FmtConan(ConanFile):
         cmake_release = CMake(self, build_type="Release")
         cmake_release.definitions["FMT_DOC"] = "OFF"
         cmake_release.definitions["FMT_TEST"] = "OFF"
+        cmake_release.definitions["CMAKE_POSITION_INDEPENDENT_CODE"] = "ON"
         cmake_release.configure(source_folder="./fmt")
         cmake_release.build()
         cmake_release.install()
@@ -30,6 +31,7 @@ class FmtConan(ConanFile):
         cmake_debug = CMake(self, build_type="Debug")
         cmake_debug.definitions["FMT_DOC"] = "OFF"
         cmake_debug.definitions["FMT_TEST"] = "OFF"
+        cmake_debug.definitions["CMAKE_POSITION_INDEPENDENT_CODE"] = "ON"
         cmake_debug.configure(source_folder="./fmt")
         cmake_debug.build()
         cmake_debug.install()
