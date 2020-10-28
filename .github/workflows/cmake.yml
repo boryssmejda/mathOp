@@ -35,16 +35,22 @@ jobs:
             python dependencies_install.py
         - name: Configure Project
           run: |
+            pwd
+            cd scripts/python
+            pwd
             python configure_desktop.py
         - name: Build Project Static
           run: |
+            cd scripts/python
             python build.py Release
             python build.py Debug
         - name: Test project
           run: |
+            cd scripts/python
             python test.py Release
             python test.py Debug
         - name: Install Project
           run: |
+            cd scripts/python
             python install.py Release
             python install.py Debug
