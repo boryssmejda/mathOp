@@ -216,7 +216,6 @@ int main()
 - [x] Use C API in Python scripts
 - [x] Replace -fPIC, -fvisibility=hidden flag with CMake's proper variables
 - [x] Add package version in CMake
-- [ ] Add custom exceptions to C++ library to differentiate between overflow and underflow
 - [x] Prepare unit tests in Python of the mathOp library
 - [x] Create fmt binary package using Conan
 - [x] Create Pybind 11 package with Conan Package Manager
@@ -225,7 +224,7 @@ int main()
 - [x] Python scripts for uniform project building.
     - Compare their code with the platform specific scripts.
     - Check which one is more readable and potentially easier to maintain
-- [ ] Setup Continuous Integration for the project
+- [x] Setup Continuous Integration for the project
 
 ## Acknowledgements
 I would like to thank my friend [Grzegorz](https://github.com/Greg-Skowronski),
