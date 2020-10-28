@@ -3,7 +3,7 @@ name: CMake CI
 on: [push]
 
 jobs:
-    Configure-Tools:
+    Build-Linux:
         runs-on: ubuntu-latest
         steps:
         - uses: actions/checkout@v2
@@ -56,3 +56,20 @@ jobs:
             cd scripts/python
             python install.py Release
             python install.py Debug
+        - name: Configure Android
+          run: |
+            cd scripts/python
+            python clean.py
+            python uninstall_dependencies.py
+            python dependencies_install.py Android
+            python configure_android.py
+        - name: Build Android
+          run: |
+            cd scripts/python
+            python build.py Release
+            python build.py Debug
+        - name: Test Android
+          run: |
+            cd scripts/python
+            python test.py Release
+            python test.py Debug
