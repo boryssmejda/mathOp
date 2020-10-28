@@ -10,9 +10,15 @@ jobs:
   example:
     runs-on: ubuntu-latest
     steps:
-    - name: Setup cmake
+    - name: Setup CMake
       uses: jwlawson/actions-setup-cmake@v1.4
       with:
         cmake-version: '3.18.x'
-    - name: Use cmake
+    - name: Use CMake
       run: cmake --version
+    - name: Setup Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.9.0' # Version range or exact version of a Python version to use, using SemVer's version range syntax
+        architecture: 'x64' # optional x64 or x86. Defaults to x64 if not specified
+      run: python --version
