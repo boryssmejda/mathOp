@@ -1,25 +1,50 @@
 name: CMake CI
 
-on:
-  push:
-    branches:
-      - master
-    pull-request: {}
+on: [push]
 
 jobs:
-  example:
-    runs-on: ubuntu-latest
-    steps:
-    - name: Setup CMake
-      uses: jwlawson/actions-setup-cmake@v1.4
-      with:
-        cmake-version: '3.18.x'
-    - name: Use CMake
-      run: cmake --version
-    - name: Setup Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: '3.9.0' # Version range or exact version of a Python version to use, using SemVer's version range syntax
-        architecture: 'x64' # optional x64 or x86. Defaults to x64 if not specified
-    - name: Get Python version
-      run: python --version
+    Configure-Tools:
+        runs-on: ubuntu-latest
+        steps:
+        - uses: actions/checkout@v2
+        - name: Setup CMake
+          uses: jwlawson/actions-setup-cmake@v1.4
+          with:
+            cmake-version: '3.18.x'
+        - name: Use CMake
+          run: cmake --version
+        - name: Setup Python
+          uses: actions/setup-python@v2
+          with:
+            python-version: '3.9.0' # Version range or exact version of a Python version to use, using SemVer's version range syntax
+            architecture: 'x64' # optional x64 or x86. Defaults to x64 if not specified
+        - name: Get Python version and Pip
+          run: |
+            python --version
+            python -m pip install --upgrade pip
+            pip --version
+        - name: Get Conan
+          run: |
+            pip install conan
+            conan
+        - name: Install Dependencies
+          run: |
+            pwd
+            cd scripts/python
+            python clean.py
+            python dependencies_install.py
+        - name: Configure Project
+          run: |
+            python configure_desktop.py
+        - name: Build Project Static
+          run: |
+            python build.py Release
+            python build.py Debug
+        - name: Test project
+          run: |
+            python test.py Release
+            python test.py Debug
+        - name: Install Project
+          run: |
+            python install.py Release
+            python install.py Debug
